@@ -1,0 +1,364 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html">
+	<TITLE>Java(TM) IDL FAQ</TITLE>
+	<META NAME="GENERATOR" CONTENT="StarOffice/5.2 (Solaris Sparc)">
+	<META NAME="CREATED" CONTENT="20001207;11452600">
+	<META NAME="CHANGEDBY" CONTENT="Debbie Carson">
+	<META NAME="CHANGED" CONTENT="20001207;12575600">
+	<STYLE>
+	<!--
+		H1 { color: #000000 }
+		TD P { color: #000000 }
+		H2 { color: #000000 }
+		H3 { color: #000000 }
+		P { color: #000000 }
+		BLOCKQUOTE { color: #000000 }
+		PRE { color: #000000 }
+		A:link { color: #0000ff }
+		A:visited { color: #000077 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#000077" BGCOLOR="#ffffff">
+<TABLE WIDTH=50% BORDER=0 CELLPADDING=2 CELLSPACING=2 STYLE="page-break-before: always">
+	<TR>
+		<TD WIDTH=10>
+			<P><IMG SRC="../../images/javalogo52x88.gif" NAME="Graphic1" ALT="Java" ALIGN=BOTTOM WIDTH=52 HEIGHT=88 BORDER=0>
+						</P>
+		</TD>
+	</TR>
+</TABLE>
+<H1 ALIGN=CENTER>Java<FONT SIZE=1><SUP>TM</SUP></FONT> IDL FAQ</H1>
+<P><!-- +++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++ -->This
+is a document that attempts to answer many of the questions you may
+have about Java IDL. We will continue to update this document with
+your questions as we receive them. If you do not find your question
+answered here, send email to <A HREF="mailto:javaidl@eng.sun.com">javaidl@eng.sun.com</A>.
+</P>
+<P><A HREF="#installdownload">Installation and Downloading</A></P>
+<UL>
+	<LI><P><A HREF="#where can I download">Where can I download the
+	idltojava compiler?</A></P>
+</UL>
+<P><A HREF="#errors">Errors</A></P>
+<UL>
+	<LI><P><A HREF="#problems running idltojava">I am having problems
+	running idltojava. The problem is ... How can I fix the problem?</A></P>
+	<LI><P><A HREF="#preprocessor">When I try to compile an IDL file
+	with the idltojava compiler, I get a fatal error: idltojava.exe:
+	fatal error: cannot preprocess input; No such file or directory&quot;.
+	What is the problem?</A></P>
+	<LI><P><A HREF="#servermain">Why do I get this message when I try to run HelloServer: 
+	Exception in thread "main" java.lang.NoClassDefFoundError:
+	 HelloServer/java</a>
+</UL>
+<P><A HREF="#features">Features</A></P>
+<UL>
+	<LI><P><A HREF="#notificationevent">Does Java IDL contain
+	notification/event services?</A></P>
+	<LI><P><A HREF="#namingservice">What are the command line options
+	for tnameserv, the Naming Service?</A></P>
+	<LI><P><A HREF="#two machines">How can I run the Hello World example
+	on two machines?</A></P>
+	<LI><P><A HREF="#corbacompliant">Is Java IDL CORBA compliant?</A></P>
+	<LI><P><A HREF="#ORBinterop">Can I use the Java IDL ORB with a C++ CORBA server? (interoperability)</A></P>
+</UL>
+<P><A HREF="#general">General</A></P>
+<UL>
+	<LI><P><A HREF="#what is the difference">What is the difference
+	between the idltojava compiler and the idlj compiler?</A></P>
+	<LI><P><A HREF="#what are my options">What are my options for
+	developing CORBA applications using Java?</A></P>
+	<LI><P><A HREF="#java idl vs rmi-iiop">What is the difference
+	between Java IDL and RMI-IIOP?</A></P>
+</UL>
+<H2><A NAME="installdownload"></A>Installation and Downloading</H2>
+<H3><A NAME="where can I download"></A>Where can I download the
+idltojava compiler?</H3>
+<BLOCKQUOTE>You can download the <TT>idltojava</TT> compiler for JDK
+1.2 from
+<A HREF="http://developer.java.sun.com/developer/earlyAccess/jdk12/idltojava.html">http://developer.java.sun.com/developer/earlyAccess/jdk12/idltojava.html</A>.
+However, I highly recommend that you consider <A HREF="../../../index.html">downloading
+J2SDK 1.3</A>, which includes the latest version of the IDL-to-Java
+compiler, <TT>idlj</TT>. The <TT>idlj</TT> compiler is downloaded as
+part of the Java<FONT SIZE=1><SUP>TM</SUP></FONT> 2 Platform,
+Standard Edition, v1.3 installation. When installed, <TT>idlj</TT>
+will be located in the <TT>bin</TT> directory. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>The Java<FONT SIZE=1><SUP>TM</SUP></FONT> 2 Platform,
+Standard Edition, v1.3, also includes RMI-IIOP, a technology that
+integrates Java RMI (Remote Method Invocation) and Java IDL. As a
+result, Java IDL now uses a new version of the <A HREF="../rmi-iiop/toJavaPortableUG.html">IDL-to-Java
+compiler</A>. This compiler supports new CORBA-standard features
+required for RMI-IIOP. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>RMI-IIOP supersedes Java IDL for most purposes, by
+enabling you to write CORBA-compliant interfaces directly in Java
+rather than in the OMG-specified IDL (Interface Definition Language)
+used with Java IDL. For details, see the <A HREF="../rmi-iiop">RMI-IIOP
+documentation</A>. 
+</BLOCKQUOTE>
+<H2><A NAME="errors"></A>Errors</H2>
+<H3><A NAME="problems running idltojava"></A>I am having problems
+running idltojava. The problem is ... How can I fix the problem?</H3>
+<BLOCKQUOTE>Many of the problems we have seen related to running the
+<TT>idltojava</TT> compiler can be fixed by using the new IDL-to-Java
+compiler, <TT>idlj</TT>, available with the download of the <A HREF="../../../index.html">Java<FONT SIZE=1><SUP>TM</SUP></FONT>
+2 Platform, Standard Edition, v1.3</A>. 
+</BLOCKQUOTE>
+<H3><A NAME="preprocessor"></A>When I compile an IDL file with the
+idltojava compiler, I get a fatal error: idltojava.exe: fatal error:
+cannot preprocess input; No such file or directory&quot;. What is the
+problem?</H3>
+<BLOCKQUOTE>The <TT>idltojava</TT> compiler in JDK 1.2 is hard-coded
+to use a default preprocessor. On Windows machines, it uses the
+MicroSoft Visual C++ preprocessor. You can change the preprocessor
+that the <TT>idltojava</TT> compiler uses by setting two environment
+variables: CPP and CPARGS. Set CPP to the full pathname of the
+preprocessor you want to use. Set CPARGS to the complete list of
+arguments to be passed to the preprocessor. You can also turn off the
+preprocessor by adding -fno-cpp to the <TT>idltojava</TT> command
+line. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>More information is available in the <TT>idltojava</TT>
+reference page that is downloaded with the <TT>idltojava</TT>
+compiler. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>We recommend upgrading to the latest version of the IDL
+to Java compiler, <TT>idlj</TT>. Version 1.3 of the Java 2 SDK,
+Standard Edition, includes a new version of Java IDL which is 100%
+pure Java, so no preprocessor is necessary. The new IDL-to-Java
+compiler, <TT>idlj</TT>, is included with the download of J2SE v.1.3.
+For information on the enhancements to Java IDL that are supported in
+v.1.3, follow the link to <A HREF="jidlChanges.html">Java(TM) IDL:
+Changes between JDK 1.2 and J2SDK, SE, v1.3</A>. To download version
+1.3 of the Java 2 SDK, Standard Edition, link to
+<A HREF="../../../index.html">http://java.sun.com/j2se/1.3/index.html</A>.
+To learn more about the new version of Java IDL, link to the <A HREF="index.html">Java
+IDL</A> page for J2SE v1.3. 
+</BLOCKQUOTE>
+
+<A NAME="servermain">
+<H3>Why do I get this message when I try to run HelloServer: "Exception in thread "main" java.lang.NoClassDefFoundError:
+	 HelloServer/java"</H3></a>
+	 
+<BLOCKQUOTE>
+The most common reason for this error when running HelloServer (and also HelloClient)
+from the Java IDL tutorial is when a space is added between quotation marks in the following line of code:
+<P>
+<PRE>
+NameComponent nc = new NameComponent("Hello", "");
+</PRE>
+
+<P>There should be no spaces between the quotation marks.  Without spaces, this value
+is passed as a null.  With a space between the quotations, a space character is passed.
+</BLOCKQUOTE>
+	 
+	 
+	 
+<H2><A NAME="features"></A>Features</H2>
+<H3><A NAME="notificationevent"></A>Does Java IDL contain
+notification/event services?</H3>
+<BLOCKQUOTE>No, it does not. If you need an events service, you can
+implement one, purchase one off the shelf, or search for one freely
+available to start things off with. 
+</BLOCKQUOTE>
+<H3><A NAME="namingservice"></A>What are the command line options for
+tnameserv, the Naming Service?</H3>
+<BLOCKQUOTE>No command line options are necessary for running
+<TT>tnameserv</TT>, however, it is recommended that you specify a
+port for the name server to run on , as follows: 
+</BLOCKQUOTE>
+<PRE STYLE="margin-left: 0.39in; margin-right: 0.39in; margin-bottom: 0.2in">         tnameserv -ORBInitialPort nameserverport</PRE><BLOCKQUOTE>
+Or, from an MS-DOS system prompt (Windows), enter: 
+</BLOCKQUOTE>
+<PRE STYLE="margin-left: 0.39in; margin-right: 0.39in; margin-bottom: 0.2in">         start tnameserv -ORBInitialPort nameserverport</PRE><BLOCKQUOTE>
+Note that nameserverport is the port on which you want the name
+server to run. If you do not specify this, port 900 will be chosen by
+default. Also note that using Solaris software, you must become root
+to start a process on a port under 1024. For this reason, we
+recommend that you use a port number greater than or equal to 1024. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>More description of the Naming Service is available on
+the Web at
+<A HREF="http://java.sun.com/j2se/1.3/docs/guide/idl/jidlNaming.html">http://java.sun.com/j2se/1.3/docs/guide/idl/jidlNaming.html</A>.
+</BLOCKQUOTE>
+<H3><A NAME="two machines"></A>How can I run the Hello World example
+on two machines?</H3>
+<BLOCKQUOTE>You need to use the -ORBInitialHost &lt;Host Name where
+Name Service is Launched&gt; option when starting the client and/or
+server (whichever is not running on the same machine as the name
+server). This way the client and server know where to find the Name
+Service. As example can be found on the Web at
+<A HREF="http://java.sun.com/j2se/1.3/docs/guide/idl/tutorial/jidl2machines.html">http://java.sun.com/j2se/1.3/docs/guide/idl/tutorial/jidl2machines.html</A>.</BLOCKQUOTE>
+
+
+<H3><A NAME="corbacompliant"></A>Is Java IDL CORBA compliant?</H3>
+<BLOCKQUOTE>With the idlj compiler in J2SDK 1.3, we are CORBA 2.3
+compliant in some areas but not in others. In J2SDK 1.4, we will be
+more compliant with CORBA 2.3. RMI-IIOP also mostly comforms to
+CORBA/IIOP 2.3.1, with the exception that Valuetypes are encoded on a
+GIOP 1.0 stream although they were defined for GIOP 1.2. The J2SE 1.4
+and J2EE 1.3 ORB platforms will have GIOP 1.2 support along the lines
+of compliance with CORBA 2.3.</BLOCKQUOTE>
+
+<H3><A NAME="ORBinterop"></A>Can I use the Java IDL ORB with a C++ CORBA server? (interoperability)</H3>
+<BLOCKQUOTE>
+The Java IDL ORB is an ORB completely written in Java.  The <tt>idlj</tt> compiler
+generates code that follows the conventions definded in the <EM>IDL to Java Language Mapping 
+Specification</EM>. The Java ORB does not provide a compiler that generates code in any 
+languages other than the Java platform.  If you want to test  
+interoperability between the Java ORB and an ORB written in another language (such as  
+C++), you will need to find an ORB written in that language and a compiler that conforms
+ to the  specific language mapping.  
+Language mapping specifications are available from the Object Management Group Web site at
+<a href="http://www.omg.org/technology/documents/formal/corba_language_mapping_specifica.htm">http://www.omg.org/technology/documents/formal/corba_language_mapping_specifica.htm</a>.   To find a vendor that provides a CORBA ORB and a language mapping compiler in the language you are working with, search the Web for "C++ CORBA ORB", or equivalent. 
+
+<P>Although it is true in theory that ORBs written in 
+different languages should be able to talk to each other, we haven't tested the 
+interoperability of the Java ORB with other vendor's ORBs.
+</BLOCKQUOTE>
+
+<H2><A NAME="general"></A>General</H2>
+<H3><A NAME="what is the difference"></A>What is the difference
+between the idltojava compiler and the idlj compiler?</H3>
+<BLOCKQUOTE>The following list provides a summary of changes that
+occurred in Java IDL between the release of JDK 1.2 and J2SE v.1.3.
+For more detail, read <A HREF="jidlChanges.html">Java IDL: Changes
+between JDK 1.2 and J2SDK, Standard Edition, v1.3</A>. 
+</BLOCKQUOTE>
+<UL>
+	<LI><BLOCKQUOTE STYLE="margin-bottom: 0in">New IDL-to-Java compiler,
+	<TT>idlj</TT>, is 100% Pure Java, so no preprocessor is necessary
+	when compiling IDL files. 
+	</BLOCKQUOTE>
+	<LI><BLOCKQUOTE STYLE="margin-bottom: 0in">More IDL-to-Java compiler
+	options. See the reference documentation for the <A HREF="../rmi-iiop/toJavaPortableUG.html">IDL-to-Java
+	compiler</A> for a list of options. 
+	</BLOCKQUOTE>
+	<LI><BLOCKQUOTE STYLE="margin-bottom: 0in">Mapping for interfaces is
+	supported. In accordance with the <A HREF="mapping/idltojavamapping.pdf">OMG
+	IDL to Java Language Mapping Specification</A>, <EM>Section 1.12,
+	Mapping for Interfaces</EM>, the signature interface no longer
+	contains the method that corresponds to the interface defined in the
+	IDL file. Instead, the operations interface,
+	<TT><EM>&lt;interface&gt;</EM>Operations.java</TT>, is generated in
+	the <TT><EM>&lt;module&gt;</EM></TT> subdirectory and contains the
+	methods defined by the interface. 
+	</BLOCKQUOTE>
+	<LI><BLOCKQUOTE>Support for Java mapping to IDL value types. 
+	</BLOCKQUOTE>
+</UL>
+<H3><A NAME="what are my options"></A>What are my options for
+developing CORBA applications using Java?</H3>
+<BLOCKQUOTE>CORBA technology as part of the Java 2 platform consists
+of an <A HREF="../corba/index.html#orb">Object Request Broker (ORB)</A>
+written in Java (with a small bit of native code), the <A HREF="../corba/index.html#rmi">RMI
+programming model</A>, and the <A HREF="../corba/index.html#idl">IDL
+programming model</A>. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>The &quot;magic&quot; that gives us the cross-language,
+cross-vendor interoperability is the Internet InterORB Protocol, or
+IIOP. IIOP can be a transport protocol for distributed applications
+written in either IDL or Java RMI. IIOP allows distributed objects to
+conform to OMG's CORBA specification. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>When using the IDL programming model, the interface is
+everything! It defines the points of entry that can be called from a
+remote process, such as the types of arguments the called procedure
+will accept, or the value/output parameter of information returned.
+Using IDL, the programmer can make the entry points and datatypes
+that pass between communicating processes act like a standard
+language. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>CORBA is a language-neutral system in which the argument
+values or return values are limited to what can be represented in the
+involved implementaton languages. In CORBA, object orienation is
+limited only to objects that can be passed by reference (the object
+code itself cannot be passed from machine-to-machine) or are
+predefined in the overall framework. Passed and returned types must
+be those declared in the interface. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>With RMI, the IDL and the implementation language are the
+same thing, so you don't have to worry about mapping from one to the
+other. Language-level objects (the code itself) can be passed from
+one process to the next. Values can be returned by their actual type,
+not the declared type. Or, you can compile the interfaces to generate
+IIOP-compliant stubs and skeletons to talk to objects written on
+other machines in other CORBA-compliant languages. 
+</BLOCKQUOTE>
+<H3><A NAME="java idl vs rmi-iiop"></A>What is the difference between
+Java IDL and RMI-IIOP?</H3>
+<BLOCKQUOTE>This is a fundamental question and it's important to
+understand the distinction between these two ways of integrating the
+Java programming language with CORBA. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>Java IDL is for CORBA programmers who want to program in
+the Java programming language based on interfaces defined in CORBA
+Interface Definition Language (IDL). This is &quot;business as usual&quot;
+CORBA programming, supporting Java in exactly the same way as other
+languages like C++ or COBOL. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>RMI-IIOP (Remote Method Invocation over Internet
+Inter-ORB Protocol) is for Java programmers who want to program to
+the RMI interfaces, but use IIOP as the underlying transport.
+RMI-IIOP provides interoperability with other CORBA objects
+implemented in various languages - but only if all the remote
+interfaces are originally defined as Java RMI interfaces. It is of
+particular interest to programmers using Enterprise JavaBeans (EJB),
+since the remote object model for EJBs is RMI-based. 
+</BLOCKQUOTE>
+<BLOCKQUOTE>There are several scenarios that will define how you will
+want to create distributed CORBA applications. Here are some of them:
+</BLOCKQUOTE>
+<UL>
+	<LI><BLOCKQUOTE>Java IDL! If you have been developing CORBA
+	applications using IDL for some time, you will probably want to stay
+	in this environment. Create the interfaces using IDL, and define the
+	client and server applications using the Java programming language
+	to take advantage of its &quot;Write Once, Run Anywhere<FONT SIZE=1><SUP>TM</SUP></FONT>&quot;
+	portability, its highly productive implementation environment, and
+	its very robust platform. 
+	</BLOCKQUOTE>
+	<LI><BLOCKQUOTE>RMI-JRMP! If all of your applications are written in
+	the Java programming language, you will probably want to use Java
+	RMI to enable communication between Java objects on different
+	virtual machines and different physical machines. Using Java RMI
+	without its IIOP option leverages its strengths of code portability,
+	security, and garbage collection. 
+	</BLOCKQUOTE>
+	<LI><BLOCKQUOTE>RMI-IIOP! If you writing most of your new
+	applications using the Java programming language, but need to
+	maintain legacy applications written in other programming languages
+	as well, you will probably want to use Java RMI with its IIOP
+	compiler option. 
+	</BLOCKQUOTE>
+</UL>
+<H3><BR><BR>
+</H3>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=2>
+	<TR VALIGN=TOP>
+		<TD>
+			<P><!-- Body text ends here --><!-- =============================================
+================= --><FONT SIZE=1><A HREF="../../relnotes/SMICopyright.html">Copyr
+			ight</A> &copy; 2000 <A HREF="http://www.sun.com/">Sun
+			Microsystems, Inc.</A> All Rights Reserved. </FONT>
+			</P>
+			<P><FONT SIZE=2>Send questions or comments to:
+			<A HREF="mailto:javaidl@eng.sun.com">JavaIDL@eng.sun.com</A>. </FONT>
+			</P>
+		</TD>
+		<TD>
+			<P ALIGN=RIGHT><IMG SRC="../../images/sunlogo64x30.gif" NAME="Graphic2" ALT="Sun" ALIGN=BOTTOM WIDTH=64 HEIGHT=30 BORDER=0>
+			<BR><BR><FONT SIZE=4><I>Java Software</I> </FONT>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P><BR><BR>
+</P>
+</BODY>
+</HTML>

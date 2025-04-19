@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"> <HTML> <HEAD>
+
+	<TITLE>CORBA and Java<SUP><FONT SIZE="-2">TM</FONT></SUP> 
+technologies</TITLE> </HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+
+<H1>CORBA Technology and the Java<SUP><FONT SIZE="-2">TM</FONT></SUP>
+Platform</H1> </P>
+
+
+
+<P>The Java 2 Platform, Standard Edition, v1.3, provides a CORBA 
+ Object Request Broker (ORB) and two CORBA programming 
+models that utilize the Java CORBA ORB and Internet InterORB Protocol 
+(IIOP).  This topic discusses these options for creating and 
+distributing CORBA technology.
+
+<P>CORBA technology is an integral part of the Java 2 platform.  It 
+consists of an <A HREF="#orb">Object Request Broker (ORB)</A> written 
+in Java (with a small bit of native code), APIs for the <A HREF="#rmi">RMI 
+programming model</A>, and APIs for the <A HREF="#idl">IDL programming model</A>. 
+ </P> 
+
+
+<H2>How does J2SE leverage CORBA</H2>
+
+<P>Common Object Request Broker Architecture (CORBA) technology is the
+open standard for heterogeneous computing.  CORBA complements the
+Java<SUP><FONT SIZE="-2">TM</FONT></SUP> platform by providing a
+distributed objects framework, services to support that framework, and
+interoperability with other languages.  The Java platform complements 
+CORBA
+by providing "Write Once, Run Anywhere<SUP><FONT 
+SIZE="-2">TM</FONT></SUP>"
+portability, a highly productive implementation environment, and a very
+robust platform.  By combining the Java platform with CORBA and other 
+key
+enterprise technologies, the Java 2 Platform is the ultimate platform 
+for
+distributed technology solutions.  </P> 
+
+<P> CORBA standards provide the
+proven, interoperable infrastructure to the Java platform.  IIOP 
+(Internet
+Inter-ORB Protocol) manages the communication between the object 
+components
+that power the system.  The Java platform provides a portable object
+infrastructure that works on every major operating system.  CORBA 
+provides
+the network transparency, Java provides the implementation 
+transparency.
+
+
+
+<A NAME="orb"></A>
+<H3>The Object Request Broker?</H3>
+
+<P>A CORBA  <A
+HREF="../../api/org/omg/CORBA/package-summary.html">Object Request 
+Broker
+(ORB)</A> is part of the Java 2 Platform, Standard Edition, v1.3.  The ORB is a 
+runtime component that can be used for distributed 
+computing using IIOP communication.   This eliminates the requirement for 
+licensing and distributing third-party Java ORBs.
+
+<P><STRONG>NOTE: Although it is true in theory that ORBs written in 
+different languages should be able to talk to each other, we haven't tested the 
+interoperability of the Java ORB with other vendor's ORBs.</STRONG>
+
+<P> The Object Management Group (OMG) is an industry consortium that
+invented CORBA and publishes specifications for CORBA.  Vendors 
+implement
+the specifications to produce products known as Object Request Brokers
+(ORB).  The good news for developers is that the Java<sup><font
+size="-2">TM</font></sup> Standard Edition, v1.2 and higher includes an
+ ORB that is available in every deployment of the Java 
+2
+Platform, Standard and Enterprise Editions.  Now you can write Java 
+CORBA
+code without having to license any other software!  To read more about 
+the
+<A HREF="../../api/org/omg/CORBA/ORB.html"><TT>ORB</TT></A> class, 
+follow
+the link.
+
+<P>The Java CORBA ORB supports both the RMI and IDL programming models, 
+both of which use the underlying IIOP wire-level protocol for 
+communication.
+
+<H2>Introducing the CORBA Programming Models</H2>
+
+
+
+<H3>History of the CORBA Programming Models</H3>
+
+    
+
+<P>In 1997, Remote Method Invocation, or RMI, was introduced in JDK 
+1.1.  Initially, RMI was positioned as a natural outgrowth of Remote 
+Procedure Calls (RPC), strictly for enabling calls to be made between 
+Java  objects in different virtual machines, and even on different 
+physical machines. 
+
+<P>In 1998, came JDK 1.2, which introduced Java<sup><font 
+size="-2">TM</font></sup> IDL, a Java API for interoperability and 
+integration with CORBA.  Java IDL included both a Java-based ORB, which 
+supported IIOP,  and the IDL-to-Java compiler, <TT>idltojava</TT>, for 
+generating client-side stubs and server-side code skeletons. This 
+release also included a CORBA ORB.
+
+<P>The OMG finalized modifications of its IIOP specification so that it 
+would support most of the JDK 1.1 functionality of RMI.  JDK 1.2 
+introduced RMI over IIOP, which enabled remote objects written in the 
+Java programming language to communicate with objects written in any 
+language via IIOP.  
+
+
+<H2>Comparing the CORBA Programming Models</H2>
+
+<P>The "magic" that gives us the cross-language, cross-vendor 
+interoperability is the Internet InterORB Protocol, or IIOP.  IIOP can 
+be a transport protocol for distributed applications written in either 
+IDL or Java RMI.  IIOP allows distributed objects to conform to OMG's 
+CORBA specification.
+
+<P>When using the IDL programming model, the interface is everything!  
+It defines the points of entry that can be called from a remote 
+process, such as the types of arguments the called procedure will 
+accept, or the value/output parameter of information returned.  Using 
+IDL, the programmer can make the entry points and datatypes that pass 
+between communicating processes act like a standard language.
+
+<P>CORBA is a language-neutral system in which the argument values or 
+return values are limited to what can be represented in the involved 
+implementaton languages.  In CORBA, object orienation is limited only 
+to objects that can be passed by reference (the object code itself 
+cannot be passed from machine-to-machine) or are predefined in the 
+overall framework.  Passed and returned types must be those declared in 
+the interface.
+
+<P>With RMI, the IDL and the implementation language are the same 
+thing, so you don't have to worry about mapping from one to the other.  
+Language-level objects (the code itself) can be passed from one process 
+to the next.  Values can be returned by their actual type, not the 
+declared type.  Or, you can compile the interfaces to generate 
+IIOP stubs and skeletons to talk to objects written on other 
+machines in other CORBA-compliant languages.
+
+<A NAME="rmi"></A>
+<H3>The RMI Programming Model</H3> 
+
+<P><B>What is the RMI Programming Model</B></P>
+
+
+<P>The RMI Programming model enables the programming of CORBA servers and applications 
+via the <TT>rmi</TT> API.  You can choose to work completely within the Java programming 
+language, using the Java Remote Method Protocol (JRMP) or work with other CORBA-compliant 
+programming languages using the Internet InterORB Protocol (IIOP).  This topic discusses using 
+IIOP as the transport.  For more information on using the JRMP transport, link to the RMI page 
+at <A 
+HREF="http://java.sun.com/j2se/1.3/docs/guide/rmi/">http://java.sun.com/j2se/1.3/docs/guide/rmi/
+</A>.  
+
+<P>The RMI API utilizes the Java CORBA ORB and 
+IIOP, so you can write all of your code in Java, and use the 
+<TT>rmic</TT> compiler to generate the code necessary for connecting 
+your applications via the Internet InterORB Protocol (IIOP) to others 
+written in any CORBA-compliant language.
+ 
+<P>The RMI
+ programming model is part of the Java<SUP><FONT 
+SIZE="-2">TM</FONT></SUP> 2
+Platform, Standard Edition, v1.3.  This enables the ability to
+write CORBA applications for the Java platform without learning CORBA
+Interface Definition Language (IDL).  To work with CORBA applications 
+in
+other languages, IDL can be generated from Java programming language
+interfaces using the <TT>rmic</TT> compiler with the <TT>-idl</TT> 
+option. To generate IIOP stubs and tie classes, use the <TT>rmic</TT> 
+compiler with the <TT>-iiop</TT> option.  
+J2SE includes the full functionality of a CORBA Object Request
+Broker (ORB).  For older versions of the JDK, the <A
+HREF="../../../../../products/rmi-iiop/index.html">RMI over IIOP
+compiler</A> is available as a separate download.  For more information 
+on using <TT>rmic</TT>, link to <A 
+HREF="../../tooldocs/solaris/rmic.html">rmic - The Java RMI Stub 
+Compiler</A>.
+
+<P><B>When should I use the RMI programming model?</B></P>
+
+<P>The RMI programming model combines the best features of Java Remote 
+Method Invocation (RMI) with the best features of CORBA.   The RMI 
+programming model speeds distributed application development by 
+allowing developers to work completely in the Java programming 
+language.  When using the RMI programming model to
+produce Java technology-based distributed applications, there is no
+separate Interface Definition Language (IDL) or mapping to learn.  The 
+RMI programming model provides flexibility by allowing developers to 
+pass any
+serializable Java object (Objects By Value) between application 
+components. Like CORBA, the RMI programming model is based on open 
+standards defined with the participation of hundreds of vendors and 
+users in the Object Management Group.  Like CORBA, the RMI programming 
+model uses Internet Inter-ORB Protocol (IIOP)
+as its communication protocol.  IIOP eases legacy application and 
+platform
+integration by allowing application components written in C++, 
+Smalltalk,
+and other CORBA supported languages to communicate with components 
+running
+on the Java platform.
+
+<P>With the RMI programming model, developers can write remote 
+interfaces in the Java programming language and implement them simply 
+using Java technology and
+the Java RMI APIs.  These interfaces can be implemented in any other
+language that is supported by an OMG mapping and a vendor supplied ORB 
+for
+that language.  Similarly, clients can be written in other languages 
+using
+IDL derived from the remote Java technology-based interfaces.  Using
+the RMI programming model, objects can be passed both by reference and 
+by value over IIOP.
+
+<P><B>Where can I found out more about the RMI programming 
+model</B></P>
+
+<P>For more information on the RMI programming model, see <A 
+HREF="../rmi-iiop/index.html">RMI-IIOP Documentation</A>.
+
+<P>For an introductory tutorial using the RMI programming model, see <A 
+HREF="../rmi-iiop/rmi_iiop_pg.html">Tutorial: Getting Started with the RMI 
+Programming Model</A>.
+
+<A NAME="idl"></A>
+<H3>The IDL Programming Model</H3> 
+
+<P><B>What is the IDL Programming Model</B></P>
+
+<P>The IDL programming model, known as Java<SUP><FONT 
+SIZE="-2">TM</FONT></SUP> IDL, consists of both the Java CORBA ORB and 
+the <TT>idlj</TT> compiler that maps the OMG IDL to Java bindings that use the 
+Java CORBA ORB.
+
+<P> Java<SUP><FONT SIZE="-2">TM</FONT></SUP> IDL is part of the Java 2 
+Platform, Standard Edition, v1.3.  To develop applications with Java 
+IDL, use <A HREF="../rmi-iiop/toJavaPortableUG.html">Java<SUP><FONT
+SIZE="-2">TM</FONT></SUP> IDL Compiler</A>, <TT>idlj</TT>,  which is included with the 
+J2SE v1.3 download.  </P>
+
+
+
+
+
+<P><B>When should I use the IDL programming model?</B></P>
+
+<P>The OMG IDL (Interface Definition Language) is a purely declarative
+language designed for specifying programming-language-independent
+operational interfaces for distributed applications.  OMG specifies a
+mapping from IDL to several different programming languages, including 
+C, 
+C++, Lisp, Python, Smalltalk, COBOL, Ada, and Java.  When mapped, each statement in 
+OMG
+IDL is translated to a corresponding statement in the programming 
+language
+of choice. Java IDL is an implementation of the CORBA specification. 
+For example, you could use the Java IDL Compiler, <TT>idlj</TT>, to map 
+an IDL
+interface to Java and implement the client class in Java.  If you map 
+the
+same IDL to C++, using another vendor's IDL-to-C++ compiler and C++ ORB,  and implement the 
+server in that language, the Java 
+client
+and C++ server interoperate through the ORB as though they were written 
+in
+the same language.  </P>
+
+<P><STRONG>NOTE: Although it is true in theory that ORBs written in 
+different languages should be able to talk to each other, we haven't tested the 
+interoperability of the Java ORB with other vendor's ORBs.</STRONG>
+
+<P><B>Where can I find out more about the IDL programming model</P></B>
+
+<P>For more information on the IDL programming model,  see <A 
+HREF="../idl/index.html">Java IDL Documentation</A>.
+
+<P>For an introductory tutorial to the IDL programming model, see  <A 
+HREF="../idl/GShome.html">Tutorial: Getting Started with Java IDL</A>.
+
+
+ <P> 
+ 
+ <H3>Comparison of IDL and RMI programming models</H3>
+ 
+ 
+ <P>There are several scenarios that will define how you will want to 
+create distributed CORBA applications.  Here are some of them:
+ 
+ <P>
+ <UL>
+ <LI>If you have been developing CORBA applications using <A 
+HREF="../idl/index.html">IDL</A> for some 
+time, you will probably want to stay in this environment.  Create the 
+interfaces using IDL, and define the client and server applications 
+using the Java programming language to take advantage of its "Write 
+Once, Run Anywhere<SUP><FONT SIZE="-2">TM</FONT></SUP>" portability, 
+its  highly productive implementation environment, and its very robust 
+platform.  
+ <P>
+ <LI>If all of your applications are written in the Java programming 
+language, you will probably want to use <A HREF="../rmi/">Java RMI</A> to enable 
+communication between Java objects on different virtual machines and 
+different physical machines.  Using Java RMI without its IIOP option 
+leverages its strengths of code portability, security, and garbage 
+collection.
+ <P>
+ <LI>If you writing most of your new applications using the Java 
+programming language, but need to maintain legacy applications written 
+in other programming languages as well, you will probably want to use 
+Java RMI with its <A HREF="../rmi-iiop/">IIOP</A> compiler option.  
+ </UL>
+
+ <P> 
+ <HR> 
+ </BODY> 
+ </HTML>

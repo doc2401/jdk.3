@@ -1,0 +1,524 @@
+<HTML>
+<HEAD>
+   <TITLE>Getting Started with Java IDL: Developing a Client Applet</TITLE>
+<!-- Changed by: dbc 10/2000 -->
+   <X-SAS-WINDOW TOP=42 BOTTOM=477 LEFT=4 RIGHT=534>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+
+
+<H1 ALIGN=CENTER>Getting Started with Java IDL: Developing a Client Applet</H1>
+<HR>
+
+<P>This topic introduces the basics of writing a CORBA 
+<A href="../jidlGlossary.html#client">client</A> applet. An applet is a Java program to 
+be included in HTML pages and executed in Java-enabled browsers.  Developing a CORBA 
+client applet is very similar to developing a CORBA client
+application, except that in the applet the 
+code appears in the <TT>init()</TT>
+method rather than in the <TT>main()</TT> method.  You can run the applet from the 
+Applet Viewer or from a Web browser that is compatible with J2SE v1.3.
+
+The steps in this lesson are:
+
+<OL>
+<LI><A href="#create">Creating the Applet</A>
+<LI><A href="#understand">Understanding the Applet</A>
+<LI><A href="#compile&run">Compiling and Running the Hello World Applet</A>
+</OL>
+
+
+<P>To see a completed version of 
+<A href="applet/HelloApplet.java"><TT>HelloApplet.java</TT></A>, 
+follow the link.
+
+<!--******************************************************-->
+<A name="create">
+<H2>Creating the Applet</H2>
+
+<P>To create <TT>HelloApplet.java</TT>,
+<P>
+<OL>
+<LI>Create a file named <TT>HelloApplet.java</TT> in the main project directory, 
+<TT>Hello</TT>, using your favorite text editor.
+<P>
+<LI>Enter the following code for <TT>HelloApplet.java</TT> in the text file.  The 
+following section, <A HREF="#understand">Understanding the Applet</A>, explains each 
+line of code in some detail.
+<P>
+<PRE>
+// The package containing our stubs.
+import HelloApp.*;
+
+// HelloClient will use the naming service.
+import org.omg.CosNaming.*;
+
+// The package containing special exceptions thrown by the name service.
+import org.omg.CosNaming.NamingContextPackage.*;
+
+// All CORBA applications need these classes.
+import org.omg.CORBA.*;
+
+// Needed for the applet.
+import java.awt.Graphics;
+
+
+public class HelloApplet extends java.applet.Applet
+{
+  public void init()
+  {
+    try{
+
+      // Create and initialize the ORB 
+      // The applet 'this' is passed to make parameters from the <APPLET...> tag
+      // available to initialize the ORB
+      ORB orb = ORB.init(this, null);
+      
+      // Get the root naming context
+      org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+      NamingContext ncRef = NamingContextHelper.narrow(objRef);
+
+      // Resolve the object reference in naming
+      NameComponent nc = new NameComponent("Hello", " ");
+      NameComponent path[] = {nc};
+      Hello helloRef = HelloHelper.narrow(ncRef.resolve(path));
+      
+      // Call the Hello server object and print the results
+      message = helloRef.sayHello();
+
+    
+    } catch(Exception e) {
+        System.out.println("HelloApplet exception: " + e);
+        e.printStackTrace(System.out);
+      }  
+  }
+  String message = " ";
+
+  public void paint(Graphics g)
+  {
+    g.drawString(message, 25, 50);
+  }
+
+}
+</PRE>
+<P>
+<LI>Save and close <TT>HelloApplet.java</TT>.
+</OL>
+
+
+
+
+<!--******************************************************-->
+<A name="understand">
+<H2>Understanding the Applet</H2>
+
+<P>This section explains each line of <TT>HelloApplet.java</TT>, describing what the 
+code does, as well as why it is needed for this applet.
+
+<A name="setup">
+<H3>Performing Basic Setup</H3>
+The basic shell of a CORBA client applet is the same as most applets: You import
+required library packages, declare the applet class, define an <TT>init()</TT>
+method, and handle exceptions.
+
+
+<A name="import">
+<H4>Importing Required Packages</H4></A>
+
+
+<P>The first step to creating the basic shell of the applet is to import the packages 
+required for the client class:
+<PRE>
+// The package containing our stubs.
+import HelloApp.*;
+
+// HelloClient will use the naming service.
+import org.omg.CosNaming.*;
+
+// The package containing special exceptions thrown by the name service.
+import org.omg.CosNaming.NamingContextPackage.*;
+
+// All CORBA applications need these classes.
+import org.omg.CORBA.*;
+
+// Needed for the applet.
+import java.awt.Graphics;
+</PRE>
+
+<A name="class">
+<H4>Declaring the Applet Class</H4></A>
+
+<P>Next, we declare the applet class:
+<PRE>
+public class HelloApplet extends java.applet.Applet
+{
+  // The init() method goes here.
+}
+</PRE>
+
+<A name="init">
+<H4>Declaring the <TT>init()</TT> method</H4></A>
+
+<P>Every Java application needs a <TT>main</TT> method of some type.  In an applet, the 
+<TT>init</TT> method is used instead of the <TT>main</TT> method.  The code you write 
+under the <TT>init</TT> method overrides the <TT>Applet</TT>'s default method so that it 
+can respond to major events.  In this case,  the code will describe how the applet 
+should be initialized each time it is loaded or reloaded.  Typically, an applet will 
+also include <TT>start</TT>, <TT>stop</TT>, and <TT>destroy</TT> methods.  
+<PRE>
+  public void init()
+  {
+    // The try-catch block goes here.
+  }
+</PRE>
+
+<A name="except">
+<H4>Handling CORBA System Exceptions</H4></A>
+
+<P>Because all CORBA programs can throw CORBA system exceptions at runtime, 
+ all of the <TT>init()</TT> functionality is placed within a 
+try-catch block.  CORBA programs throw system exceptions whenever trouble
+occurs during any of the processes (marshaling, unmarshaling, upcall) 
+involved in invocation.
+
+<P>The exception handler prints the name of the exception and its stack trace to 
+standard output (the Java console) so you can see what has gone wrong. 
+
+<P>A try-catch block is set up inside <TT>init()</TT>:
+<PRE>
+    try{
+    
+      // The rest of the HelloApplet code goes here.
+    
+    } catch(Exception e) {
+        System.out.println("HelloApplet exception: " + e);
+        e.printStackTrace(System.out);
+      }
+</PRE>
+
+
+
+
+<!--***********************************-->
+<A name="orb">
+<H3>Creating an ORB Object</H3></A>
+
+<P>A CORBA client needs a local ORB object to perform all of its marshaling and
+<A href="../jidlGlossary.html#IIOP">IIOP</A> work. Every client 
+instantiates an <TT>org.omg.CORBA.ORB</TT> object and 
+<A href="../jidlInitialization.html">initializes</A>
+it by passing certain information about itself to the ORB.
+
+
+<P>You declare and initialize an ORB variable inside the try-catch block:
+<PRE>
+      Properties props = new Properties();
+      props.put("org.omg.CORBA.ORBInitialPort", "1050");
+      ORB orb = ORB.init(this, props);
+</PRE>
+
+<P>The call to the ORB's <TT>init()</TT> method passes
+in the applet, allowing you to set certain 
+<A href="../jidlInitialization.html#systempropertiesobject">properties</A> 
+at runtime. Here we have set the ORBInitialPort property to 1050 so that
+it connects properly to the HelloServer. 
+
+
+
+<!--*********************************************-->
+<A name="finding">
+<H3>Finding the Hello Server</H3></A>
+
+<P>Now that the applet has an ORB, it can ask the ORB to locate the actual service it 
+needs,
+in this case the Hello server.  There are a number of ways for a CORBA
+client to get an initial 
+<A href="../jidlGlossary.html#object reference">object reference</A>; 
+your client applet will use the 
+COS Naming Service specified by OMG and provided with Java&nbsp;IDL.
+
+
+<A name="rootnc">
+<H4>Obtaining the Initial Naming Context</H4></A>
+
+<P>The first step in using the naming service is to get the 
+<A href="../jidlGlossary.html#initial naming context">initial naming 
+context</A>. 
+In the try-catch block, below your ORB initialization, you call
+<TT>orb.resolve_initial_references()</TT> to get an object reference to the 
+name service:
+
+<PRE>
+      org.omg.CORBA.Object objRef = 
+            orb.resolve_initial_references("NameService");
+</PRE>
+
+<P>The string "NameService" is defined for all CORBA ORBs. When you pass in 
+that string, the ORB returns a naming context object that is an object reference
+to the name service.
+
+<A name="narrow">
+<H4>Narrowing the Object Reference</H4></A>
+
+<P>As with all CORBA object references, <TT>objRef</TT> is a generic CORBA object. To 
+use
+it as a <TT>NamingContext</TT> object, you must narrow it to its proper type. 
+The call to <TT>narrow()</TT> is added just below the previous statement.
+
+<PRE>
+      NamingContext ncRef = NamingContextHelper.narrow(objRef);
+</PRE>
+
+<P>Here you see the use of an <TT>idlj</TT>-generated helper class, similar in
+function to <TT>HelloHelper</TT>. The <TT>ncRef</TT> object is now an 
+<TT>org.omg.CosNaming.NamingContext</TT>,
+and you can use it to access the naming service and find other services.
+
+
+<A name="hello">
+<H4>Finding a Service in Naming</H4></A>
+
+<P>Names can have different structures depending upon the implementation of
+the naming service. Consequently, CORBA name servers handle complex names by
+way of <TT>NameComponent</TT> objects. Each <TT>NameComponent</TT> holds 
+a single part, or element, 
+of the object's full name. An array of <TT>NameComponent</TT> objects can hold a
+fully-qualified path to an object on any computer file or disk system.
+
+<P>To find the Hello server, you first need a <TT>NameComponent</TT> to hold an 
+identifying string for it. This code is found directly below
+the call to <TT>narrow()</TT>.
+
+<PRE>
+      NameComponent nc = new NameComponent("Hello", " ");
+</PRE>
+
+<P>This statement sets the <TT>id</TT> field of <TT>nc</TT> 
+to "Hello" and the <TT>kind</TT> field to the empty string. 
+
+<P>Because the path to the <TT>Hello</TT> object has just one element, 
+create a single-element array out of <TT>nc</TT>. 
+The <TT>NamingContext.resolve()</TT>
+method requires this array for its work:
+<PRE>
+      NameComponent path[] = {nc};
+</PRE>
+
+<P>The <TT>NameComponent</TT> array is passed to the naming service's
+<TT>resolve()</TT> method to get an object reference to the Hello server 
+and narrow it to a <TT>Hello</TT> object:
+<PRE>
+      Hello helloRef = HelloHelper.narrow(ncRef.resolve(path));
+</PRE>
+
+<P>Here you see the <TT>HelloHelper</TT> class at work. The <TT>resolve()</TT> 
+method returns 
+a generic CORBA object as you saw above when locating the name service itself.
+Therefore, you immediately narrow it to a <TT>Hello</TT> object, which is the object
+reference you need to perform the rest of your work.
+
+
+
+<!--**************************************-->
+<A name="invoke">
+<H3>Invoking the <TT>sayHello()</TT> Operation</H3></A>
+
+<P>CORBA invocations look like a method call on a local object. The
+complications of marshaling parameters to the wire, routing them to the 
+server-side ORB, unmarshaling, and placing the upcall to the server
+method are completely transparent to the client programmer. Because
+so much is done for you by the generated code, invocation is really 
+the easiest part of CORBA programming.
+
+
+<PRE>
+      message = helloRef.sayHello();
+</PRE>
+
+<P>Finally, print the results of the invocation. This code is placed outside your 
+<TT>init()</TT> method, but within the <TT>HelloApplet</TT> class:
+<PRE>
+String message = " ";
+
+public void paint(Graphics g)
+{
+  g.drawString(message, 25, 50);
+}
+</PRE>
+
+
+
+<!--**************************************************-->
+<A name="compile&run">
+<H2>Compiling and Running the Hello World Applet</H2></A>
+
+<P>To run the Hello World applet, you first need to compile the applet file and generate 
+the <TT>Applet</TT> subclass, then call the subclass within an HTML file using an 
+<TT>&lt;APPLET&gt;</TT> tag.
+
+
+<A name="compile">
+<H3>Compiling the Client Applet</H3></A>
+
+<OL>
+<LI>Open a DOS prompt or terminal window.  Change to the directory where the 
+<TT>HelloApplet.java</TT> file resides.<P>
+<LI>Run the Java compiler on <TT>HelloApplet.java</TT>:
+<PRE>
+javac HelloApplet.java
+</PRE>
+<LI>Correct any errors in your file and recompile if necessary. 
+(You can copy the file from <A 
+href="applet/HelloApplet.java"><TT>HelloApplet.java</TT></A> if you have trouble
+finding your typographical errors).<P>
+<P>The generated file <TT>HelloApplet.class</TT> can be found in your project directory.
+</OL>
+
+
+<A name="html">
+<H3>Setting Up the HTML File</H3></A>
+
+<P>Once you've written an applet, you need to add it to an HTML page so that you can try 
+it out.  You do this by adding an <TT>&lt;APPLET&gt;</TT> tag to the basic HTML shell.  
+When you have completed this step, you can run your applet using the Applet Viewer or 
+from a J2SE v1.3-enabled Web browser.
+
+<P>This section describes how to create the basic HTML file and add the <TT>APPLET</TT> 
+tag to it.  
+<P>
+
+<OL>
+<LI>Create a file named <TT>Tutorial.html</TT> using your favorite text editor in your 
+project directory, <TT>Hello</TT>.<P>
+<LI>Enter the following HTML code to <TT>Tutorial.html</TT>, or paste it from <A 
+href="applet/Tutorial.html"><TT>Tutorial.html</TT></A>:
+<P>
+<PRE>
+&lt;HTML&gt;
+&lt;!--Copyright 2000, Sun Microsystems, Inc. --&gt;
+&lt;HEAD&gt;
+   &lt;TITLE&gt;Getting Started with Java IDL: Running HelloApplet&lt;/TITLE&gt;
+   &lt;X-SAS-WINDOW TOP=42 BOTTOM=477 LEFT=4 RIGHT=534&gt;
+&lt;/HEAD&gt;
+&lt;BODY BGCOLOR="#FFFFFF"&gt;
+
+
+&lt;H1 ALIGN=CENTER&gt;Running the Hello World Applet&lt;/H1&gt;
+&lt;HR&gt;
+
+&lt;P&gt;If all goes well, the applet appears below:
+
+&lt;P&gt;
+&lt;APPLET CODE=HelloApplet.class 
+        CODEBASE='enter_the_path_to_your_project_directory_here'
+        WIDTH=500 
+        HEIGHT=300&gt;
+&lt;PARAM name="org.omg.CORBA.ORBInitialHost" value=enter_server_machine_name&gt;
+&lt;PARAM name="org.omg.CORBA.ORBInitialPort" value=1050&gt;
+&lt;/APPLET&gt;
+
+
+&lt;/BODY&gt;
+&lt;/HTML&gt;
+</PRE>
+<P>
+<LI>Save the file and exit the editor.
+</OL>
+
+<P>
+The simplest form of the <TT>APPLET</TT> tag tells the browser to load the applet whose 
+<TT>Applet</TT> subclass is name <TT>HelloApplet.class</TT>.  When a Java-enabled 
+browser encounters an <TT>&lt;APPLET&gt;</TT> tage, it reserves a display area of the 
+specified <TT>WIDTH</TT> and <TT>HEIGHT</TT>, loads the bytecode for the specifiec 
+<TT>Applet</TT> subclass, creates an instance of the subclass, and then calls the 
+instances <TT>init</TT> method.
+
+<P>This applet includes <TT>PARAM</TT> tags, which let you customize the applet's 
+configuration with parameters.  In the first PARAM tag, the value for 
+ORBInitialHost is the name of the machine where the CORBA
+name server runs.  In this example, this will most likely be your local machine name. 
+In the second PARAM tag, the value of ORBInitialPort is the one
+you are using to run the name server.  This value was defined as 1050 earlier in this 
+tutorial.
+
+<P>By default, a browser looks for an applet's class files in the same directory as the 
+HTML file that has the <TT>&lt;APPLET&gt;</TT> tag.  We could use the <TT>CODEBASE</TT> 
+attribute to tell the browser in which directory the the applet's files are located.  If 
+the applet's files and the HTML file are in the same directory, as they may be in this 
+example, you can eliminate this attribute.
+
+<A NAME="run"></A>
+<H3>Running the Applet</H3>
+
+<P>Now that you have the applet code and the HTML file that loads the applet, you are 
+ready to run your applet.  For information on how to do this, link to <A 
+HREF="GScompile.html#applet">Running the Hello World Applet</A>.
+
+
+
+
+
+<!--********************************-->
+<A name="trouble">
+<H2>Troubleshooting</H2></A>
+
+<P>If you are having trouble running the applet inside your Java-enabled Web browser, 
+make sure you have the Java<SUP><FONT SIZE = "-2">TM</FONT></SUP> 2 Runtime Environment, 
+Standard Edition, version 1.3.0, which includes the Java<SUP><FONT SIZE = 
+"-2">TM</FONT></SUP> Plug-in 1.3.  This can be downloaded from <A 
+HREF="http://java.sun.com/products/plugin/index.html">http://java.sun.com/products/plugi
+n/index.html</A>.  Instructions for plugging it into your Web browser are available 
+there as well.
+
+<P>On of the error messages indicative of this situation is <TT>security violation: 
+method verification error</TT>.
+
+
+<!--**************************************-->
+<A name="information">
+<H2>For More Information</H2></A>
+
+<DL>
+
+<DT><A href="../jidlClients.html">Developing Clients</A>
+<DD>Covers topics of interest to CORBA client programmers
+
+<DT><A href="../jidlExceptions.html#systemexceptions">Exceptions: System Exceptions</A>
+<DD>Explains how CORBA system exceptions work and provides details on the
+minor codes of Java&nbsp;IDL's system exceptions
+
+<DT><A href="../jidlInitialization.html#systempropertiesobject">Initialization:&nbsp;
+System Properties</A>
+<DD>Explains what properties can be passed to the ORB at initialization
+
+<DT><A href="../jidlNaming.html">Naming Service</A>
+<DD>Covers the COS Naming Service in greater detail
+
+</DL>
+
+<P><HR>
+<CENTER><P><A href="GSapp.html">Previous lesson: Developing a Client Application</A> 
+<BR> 
+<A href="GSserver.html">Next lesson: Developing the Hello World Server</A> <BR> 
+<A href="../GShome.html">Tutorial home</A> | 
+<A href="applet/HelloApplet.java"><TT>HelloApplet.java</TT></A> <BR>
+<A href="applet/Tutorial.html"><TT>Tutorial.html</TT></A>
+
+<TABLE cellpadding=8 cellspacing=4>
+<TR>
+  <TD ALIGN=CENTER><A href="../index.html">
+Home</A></TD>
+</TR></TABLE></CENTER>
+
+<HR>
+<FONT
+SIZE="-2"><A HREF="http://www.sun.com/share/text/SMICopyright.html">Copyright
+&copy;</A></FONT><FONT SIZE="-2"> 1996, 1997, 2000 Sun Microsystems, Inc.,
+2550 Garcia Ave., Mtn. View, CA. 94043-1100 USA., All rights
+reserved.</FONT></P>
+
+</BODY>
+</HTML>
+
+
+

@@ -1,0 +1,164 @@
+<html>
+
+<head>
+<title>javald - the wrapper creator for java applications</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<a name="top"><h1>javald - the wrapper creator for Java
+applications</h1></a>
+
+<ul>
+    <li><a href="#synopsis">Synopsis</a> </li>
+    <li><a href="#description">Description</a></li>
+    <li><a href="#examples">Examples</a></li>
+    <li><a href="#seealso">See Also</a> </li>
+</ul>
+
+<h2><a name="synopsis">SYNOPSIS</a></h2>
+
+<code>    <b>javald</b> [ -C </code><em>path</em><code> ] [ -H </code><em>dir</em><code> ] [ -j </code><em>option-list</em><code> ] [ -o
+</code><em>outfile</em><code> ] [ -R </code><em>path</em><code> ]</code>
+<em>classname</em></code>
+
+<blockquote>
+    <dl>
+        <dt><b>Command-line Options</b> </dt>
+        <dt>&nbsp;</dt>
+        <dt><code>-C</code> &nbsp;<em>path</em></dt>
+        <dd>Adds <em>path</em> to the run-time CLASSPATH. This
+            specifies where <strong>java</strong> will search for
+            Java classes. See <a href="#description">Description</a>
+            for a discussion of the run-time evaluation of these
+            pathnames. <p>The -C option can be repeated, such as:</p>
+           <pre>
+    example% javald -C /usr/class -C /optjava...
+           </pre>
+        </dd>
+        <dt><code>-H</code> &nbsp;<em>dir</em></dt>
+        <dd>Sets <b>JAVA_HOME</b> to <em>dir</em>.</dd>
+        <dt>&nbsp;</dt>
+        <dt><code>-j</code> &nbsp;<em>option-list</em></dt>
+        <dd>Allows the set of options to be passed to the
+            invocation of <b>java</b> to be set. If there are
+            multiple options, they should be quoted to ensure
+            that they are passed into the resulting wrapper. </dd>
+        <dt>&nbsp;</dt>
+        <dt><code>-o</code> &nbsp;<em>outfile</em></dt>
+        <dd>Places the wrapper in <em>outfile</em>. </dd>
+        <dt>&nbsp;</dt>
+        <dt><code>-R</code> &nbsp;<em>path</em></dt>
+        <dd>Adds path to the run-time <b>LD_LIBRARY_PATH</b>.
+            This specifies where <strong>java</strong> will
+            search for native methods. See <a href="#description">Description</a>
+            for a discussion of the run-time evaluation of these
+            pathnames. </dd>
+        <dt>&nbsp;</dt>
+        <dt><em>classname</em></dt>
+        <dd>The name of the class which has the <code>main</code>
+            method.</dd>
+    </dl>
+    <p><a href="#top">Back To Top</a> </p>
+</blockquote>
+
+<h2><a name="description">DESCRIPTION</a></h2>
+
+<blockquote>
+    <p>The <strong>javald</strong> tool creates a convenient
+    wrapper that captures the necessary environment needed to run
+    a Java application specified by <em>classname</em>. If the <strong>-o
+    </strong>option is provided, the resulting executable wrapper
+    saved to file <em>outfile</em>. If the <strong>-o</strong>
+    option is not specified, then the default output file name
+    used is the name of the class.</p>
+    <p>This wrapper sets the necessary environment variables
+    needed by the <strong>java</strong> tool before it executes
+    the class specified by <em>classname</em>. </p>
+    <p>If the <strong>-H</strong> flag is specified, the wrapper
+    sets <strong>JAVA_HOME</strong> to the path specified by the
+    option. If <strong>-H</strong> option is not specified, the
+    wrapper attempts to use the user's environment <strong>JAVA_HOME</strong>
+    if set; otherwise it assumes a default <strong>JAVA_HOME</strong>
+    of <code>/usr/java</code>.</p>
+    <p>Paths specified as arguments to the <strong>-C</strong>
+    and <strong>-R</strong> flags of the <strong>javald</strong>
+    command are treated differently.</p>
+    <p>The path arguments, which may include shell variables, are
+    subject to deferred evaluation --that is, they are evaluated
+    when the wrapper is executed. </p>
+    <p>Relative pathnames are treated as pathnames relative to
+    the directory where the wrapper is installed, not the current
+    working directory. </p>
+    <p>This behavior is designed to support applications that
+    consist of several classes in a directory hierarchy rather
+    than a single executable. Using relative pathnames allows
+    this directory hierarchy (thus the application) to be more
+    easily moved to different filesystems. </p>
+    <p>The default <strong>CLASSPATH</strong> created by the
+    wrapper if no <strong>-C</strong> options are used is
+    equivalent to specifying <strong>-C</strong>. </p>
+    <p>The default interpreter executed by the wrapper is <font
+    face="Courier New">$JAVA_HOME/bin/java</font>.</p>
+    <p><a href="#top">Back To Top</a> </p>
+</blockquote>
+
+<h2><a name="examples">Examples</a></h2>
+
+<blockquote>
+    <p>Example 1: </p>
+    <blockquote>
+        <p>A wrapper called <font face="Courier New">appl</font>
+        is created in directory<font face="Courier New">
+        /opt/acme/bin</font> as follows: </p>
+        <blockquote>
+            <p><tt>example% javald -o /opt/acme/bin/appl -C
+            /opt/acme/classes AcmeApp </tt></p>
+        </blockquote>
+        <p>Suppose the wrapper contains the following environment
+        variables: </p>
+        <blockquote>
+            <p><tt>JAVA_HOME=${JAVA_HOME:-/usr/java}<br>
+            CLASSPATH=/opt/acme/classes </tt></p>
+        </blockquote>
+        <p>When appl is run, <b>java</b> will attempt to invoke
+        the <font face="Courier New"><b>main()</b></font> method
+        of the <font face="Courier New">AcmeApp</font> class. The
+        <b>java</b> interpreter will search for <font
+        face="Courier New">AcmeApp</font> in <font
+        face="Courier New">/opt/acme/classes</font>, then in the
+        default system class directory, <font face="Courier New">${JAVA_HOME}/lib/classes.zip</font>.
+        </p>
+    </blockquote>
+    <p>Example 2: </p>
+    <blockquote>
+        <p>The following command creates a script called <font
+        face="Courier New">MyApp</font>: </p>
+        <blockquote>
+            <p><tt>example% javald -o myapp -j '-noverify -ms8m'
+            MyApp</tt> </p>
+        </blockquote>
+        <p>Suppose it contains an invocation of the <b>java</b>
+        interpreter that looks like: </p>
+        <blockquote>
+            <p><tt>example% exec {JAVA_HOME}/bin/java -noverify
+            -ms8m MyApp </tt></p>
+        </blockquote>
+    </blockquote>
+    <p><a href="#top">Back To Top</a> </p>
+</blockquote>
+
+<h2><a name="seealso">SEE ALSO</a></h2>
+
+<blockquote>
+    <ul>
+        <li><a
+            href="http://java.sun.com:80/docs/books/tutorial/index.html"><em><tt>The
+            Java Tutorial</tt></em></a> for basic Java programming
+        </li>
+    </ul>
+</blockquote>
+
+<p><a href="#top">Back To Top</a> </p>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>Accessibility Properties</title>
+</head>
+<body BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#000077" 
+ALINK="#FF0000">
+
+<TABLE BORDER="0" WIDTH="100%">
+<TR>
+<TD WIDTH="60">
+<IMG SRC="../../images/javalogo52x88.gif" ALT="Java" BORDER=0 WIDTH=52 HEIGHT=88>
+</td>
+<td>
+<h1>Accessibility Properties</h1>
+
+</td>
+</tr>
+</table>
+<!-- Body text begins here -->
+<!-- ============================================================== -->
+<hr noshade width="100%">
+<h3>Indicating the Presence of a Screen Magnifier</h3>
+
+<blockquote>
+The <tt>javax.accessibility</tt> package provides the <tt>screen_magnifier_present</tt> property. When set to <tt>true</tt>, this property lets the Java platform libraries know that a screen magnifier is present on the system.
+
+Application developers can check this property, and if a screen magnifier is present, developers should make sure their applications are compatible with screen magnification. For example, on Microsoft Windows operating systems, the reference implementation of the Java 2D<sup><font size="-2">TM</font></sup> API checks this property and if <tt>true</tt>, turns off Microsoft DirectDraw to avoid problems with the screen magnifier. (Some screen magnifiers may not be able to 
+magnify DirectDraw graphics.)
+
+<p>You can set the <tt>screen_magnifier_present</tt> property at run time or in a properties file. To set the property at run time, enter a command such as the following:
+
+<p><tt>java -Djavax.accessibility.screen_magnifier_present=true foo.class</tt>
+
+<p>The reference implementation includes an <tt>accessibility.properties</tt> file in the <tt>jre/lib</tt> directory. To set the <tt>screen_magnifier_present</tt> property to <tt>true</tt> in the <tt>accessibility.properties</tt> file, add the following line:
+
+<p><tt>screen_magnifier_present=true</tt>
+</blockquote>
+
+<!-- Body text ends here -->
+<!-- ============================================================== -->
+<HR SIZE=3 NOSHADE>
+
+<TABLE BORDER="0" WIDTH="100%">
+<TR VALIGN=TOP>
+
+<TD>
+<FONT SIZE="-2">
+   <A HREF="../../relnotes/SMICopyright.html">Copyright</A> &#169; 2001
+   <A HREF="http://www.sun.com/">Sun Microsystems, Inc.</A>
+    All Rights Reserved.</FONT>
+   <br>
+   <br>
+
+   <FONT SIZE="-1">
+   Please send comments to: <a href="mailto:access@sun.com">access@sun.com</a> 
+   </FONT>
+</TD>
+
+<TD ALIGN=RIGHT>
+   <IMG SRC="../../images/sunlogo64x30.gif" ALT="Sun" BORDER=0 WIDTH=64 HEIGHT=30>
+</TD>
+
+</TR>
+</TABLE>
+
+
+</body>
+</html>

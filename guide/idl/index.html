@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+
+<HEAD>
+   <TITLE>Java IDL Documentation</TITLE>
+<!-- Changed by: carson 11/2000 -->
+</HEAD>
+
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000FF" VLINK="#000077" ALINK="#FF0000">
+
+
+<TABLE BORDER="0" WIDTH="50%">
+<TR>
+<TD WIDTH=10>
+   <IMG SRC="../../images/javalogo52x88.gif" ALT="Java" BORDER=0 WIDTH=52 HEIGHT=88>
+</TD>
+
+
+
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP>
+   <a href="../../index.html"><FONT SIZE="-1">Documentation Contents</FONT></a> 
+
+<BR>
+   <a href="jidlChanges.html"><FONT SIZE="-1">Java<SUP><FONT SIZE="-2">TM</FONT></SUP>&nbsp;IDL: Changes 
+between JDK 1.2 and J2SE 1.3</FONT></a> 
+</TD>
+</TR>
+
+</TABLE>
+
+<h1 align=center>Java<SUP><FONT SIZE="-2">TM</FONT></SUP>&nbsp;IDL</h1>
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<p>
+
+
+<BLOCKQUOTE>
+
+
+<BR>
+   Java IDL adds CORBA (Common Object Request Broker Architecture) 
+   capability to the
+   Java
+   platform, providing standards-based interoperability and 
+   connectivity. Java IDL enables distributed Web-enabled Java
+   applications to transparently invoke operations on remote
+   network services using the industry standard IDL (Object
+   Management Group Interface Definition Language) and IIOP (Internet
+   Inter-ORB Protocol) defined by the Object Management Group.
+   Runtime components include Java ORB for distributed
+   computing using IIOP communication. 
+   
+
+
+<P><B>Note: </B>This release of the Java<sup><font size=-2>TM</sup></font> 2 Platform, Standard Edition, includes
+RMI-IIOP, a technology that integrates Java RMI (Remote Method Invocation) 
+and Java IDL.  RMI-IIOP supersedes Java IDL
+for most purposes, by enabling you to write CORBA interfaces
+directly in Java rather than in the OMG-specified IDL (Interface Definition Language)
+used with Java IDL.  For details, see the
+ <A HREF="../rmi-iiop">RMI-IIOP documentation</A>.  
+</BLOCKQUOTE> 
+ <h2 align=center>Where do I get the IDL-to-Java compiler?</h2>
+ <P><BLOCKQUOTE>
+ The J2SDK, v.1.3, version of Java IDL includes a new version of the
+ <A HREF = "../rmi-iiop/toJavaPortableUG.html">IDL-to-Java compiler</A>, named <TT>idlj</TT>.  The <TT>idlj</TT> compiler supports new CORBA-standard features required for RMI-IIOP.  The <TT>idlj</TT> compiler is placed in the SDK's&nbsp<TT>.bin</TT>&nbsp;directory by the installer. 
+ 
+ <P>To download the <a href="../../../index.html">Java[tm] 2 Platform, Standard Edition (J2SE[tm]) version 1.3</A>, which includes the <tt>idlj</tt> compiler, follow the link.  Please note that the IDL-to-Java compiler is no longer a separate download, as it was in previous releases of the Java[tm] platform.
+<P> 
+For better interoperability, see the <A HREF="jidlExample.html#interop">note</A>
+ about not using an interface name for a module name in OMG IDL code.
+<P>
+
+
+
+</BLOCKQUOTE>
+
+<H2 align=center>Should I use Java IDL or RMI-IIOP?</H2>
+<BLOCKQUOTE>
+<P>This is a fundamental question and it's important to understand the distinction between these two ways of integrating the Java programming language with CORBA.
+
+<P>Java IDL is for CORBA programmers who want to program in the Java programming language based on interfaces defined in CORBA Interface Definition Language (IDL).  This is "business as usual" CORBA programming, supporting Java in exactly the same way as other languages like C++ or COBOL.
+
+<P>RMI-IIOP (Remote Method Invocation over Internet Inter-ORB Protocol) is for Java programmers who want to program to the RMI interfaces, but use IIOP as the underlying transport.  RMI-IIOP provides interoperability with other CORBA objects implemented in various languages - but only if all the remote interfaces are originally defined as Java RMI interfaces.  It is of particular interest to programmers using Enterprise JavaBeans (EJB), since the remote object model for EJBs is RMI-based.
+
+
+</BLOCKQUOTE>
+
+<H2>Java IDL FAQ</H2>
+
+<UL>
+<LI><a href="jidlFAQ.html">Java IDL FAQ</a> 
+</UL>
+
+<H2>Essential Java&nbsp;IDL API</H2>
+
+    <UL>
+       <LI>package <A HREF="../../api/org/omg/CORBA/package-summary.html">org.omg.CORBA</A> 
+       <LI>package <A 
+HREF="../../api/org/omg/CosNaming/package-summary.html">org.omg.CosNaming</A>
+	<LI><A HREF="../../api/org/omg/CORBA/ORB.html">org.omg.CORBA.ORB</A>
+       <LI><A HREF = "../rmi-iiop/toJavaPortableUG.html"><TT>idlj</TT>, the IDL-to-Java compiler</A>  documentation
+       </UL>
+
+
+
+
+<h2>Tutorials</h2>
+<UL>
+<LI><A HREF="GShome.html">Getting Started with Java IDL: The "Hello World" Tutorial (beginner)</A>
+<LI><A HREF="jidlExample.html">Example: Hello World (higher-level overview)</A>
+</UL>
+
+<H2>Extending "Hello World"</H2>
+<UL>
+<LI><A HREF="jidlExample2.html">Example: Persistent State and User Exceptions</A>
+<LI><A HREF="jidlExample3.html">Example: Callback Objects</A>
+<LI><A HREF="jidlExample4.html">Example: Implementation Inheritance</A>
+<LI><A HREF="tutorial/jidl2machines.html">Running the Hello World Example on 2 machines</A>
+</UL>
+
+
+
+
+<H2>Concepts</H2>
+<UL>
+<LI><A href="jidlDistApp.html">Distributed Application Concepts</A>
+<LI><A href="jidlUsingCORBA.html">Using CORBA and Java IDL</A>
+<LI><A href="jidlGlossary.html">Glossary</A>
+</UL>
+
+
+
+
+
+
+<H2>Programming Guide</H2>
+<UL>
+<LI><A HREF="jidlExceptions.html">Exceptions</A>
+<LI><A HREF="jidlInitialization.html">Initialization</A>
+<LI><A HREF="jidlNaming.html">Naming Service</A>
+<LI><A HREF="jidlDSI.html">Dynamic Skeleton Interface</A>
+<LI><A HREF="mapping/jidlMapping.html">Mapping IDL to the 
+Java Programming Language</A>
+</UL>
+
+
+
+
+
+
+<H2>For more information</H2>
+<blockquote>
+<p>
+The <I><A HREF="http://www.omg.org/">OMG</A></I> is the official
+source of information for all CORBA and IIOP related information.
+The <I>CORBA 2.0 Specification</I> is available electronically 
+in <a href="http://cgi.omg.org/cgi-bin/doc?ptc/96-03-04.ps">postscript</a> 
+and <a href="ftp://ftp.omg.org/pub/docs/ptc/96-03-04.pdf">pdf</a> format.
+
+
+</blockquote>
+<p>
+<!-- Body text ends here -->
+
+<!-- ============================================================== -->
+
+<HR SIZE=3 NOSHADE>
+
+
+<TABLE BORDER="0" WIDTH="100%">
+<TR VALIGN=TOP>
+
+
+<TD>
+   <FONT SIZE="-2">
+   <A HREF="../../relnotes/SMICopyright.html">Copyright</a> &#169; 1996-2000
+   <A HREF="http://www.sun.com/">Sun Microsystems, Inc.</A>
+    All Rights Reserved.
+    </FONT>
+
+   <P>
+   <FONT SIZE="-1">
+   Send questions or comments to: <A HREF="mailto:javaidl@eng.sun.com">
+   JavaIDL@eng.sun.com</A>.
+   </FONT>
+</TD>
+
+
+<TD ALIGN=RIGHT>
+
+   <IMG SRC="../../images/sunlogo64x30.gif" ALT="Sun" BORDER=0 WIDTH=64 HEIGHT=30>
+   <BR><BR>
+   <FONT SIZE="+1">
+   <i>Java Software</i>
+   </FONT>
+
+</TD>
+
+
+</TR>
+</TABLE>
+
+
+</body>
+</html>

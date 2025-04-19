@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>OJI Fetures</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF">
+<hr>
+<h1>OJI Features</h1>
+<hr>
+<div align="center"> <font size="2"><a href="index.html">home</a> 
+  | <a href="overview.html">overview</a> | <a href="plugin.html">plug-in</a> | 
+  <a href="oji.html">oji</a> | <a href="security.html">security</a></font><br>
+  <p align="left"><br>
+    This section describes the primary features of OJI. </p>
+  <p align="left"><b><font size="4">Note: </font></b></p>
+</div>
+<ul>
+  <li> 
+    <div align="left">Other than any changes noted below, all features of previous 
+      versions of Java Plug-in continue to work in this release;</div>
+  </li>
+  <li> 
+    <div align="left"> The purpose of OJI is to enable Netscape 6, which is the 
+      target of this release of Java Plug-in.</div>
+    <br>
+  </li>
+</ul>
+<h3><code>APPLET</code>, <code>EMBED</code> AND <code>OBJECT</code> Tag Support 
+  in OJI</h3>
+<p>OJI provides support so that applets using these tags can launch the Java Plug-in. 
+  For information on how to use the <code>OBJECT</code> or <code>EMBED</code> 
+  tag to lauch an applet, see the <a href="http://java.sun.com/products/plugin/1.3/docs/tags.html">Java 
+  Plug-in HTML Specification</a>.</p>
+<h3>Java-JavaScript Bi-directional Communication</h3>
+<p>JavaScript can access the methods of applets, and applets can access the Document 
+  Object Model (DOM) through JavaScript. Thus an HTML author can access applet 
+  methods and applet developers can access the DOM.</p>
+<p>See <a href="http://java.sun.com/products/plugin/1.3/docs/jsobject.html">How 
+  Java-to-JavaScript Communication Works in Java Plug-in</a> and <a href="security.html#liveconnect">Security: 
+  LiveConnect</a>.</p>
+<h3>RSA Signed Applet Verification</h3>
+<p>RSA signed applet verification continues to be supported in this release through 
+  the Java Plug-in.</p>
+<p>See <a href="http://developer.netscape.com/docs/manuals/signedobj/trust/owp.htm">Netscape 
+  Object Signing</a>, <a href="http://java.sun.com/products/plugin/1.3/docs/rsa_signing.html">How 
+  to Sign Applets Using RSA Certificates</a> and <a href="security.html#rsa">Security: 
+  RSA Signed Applets</a>.</p>
+<h3>Display of Java Console</h3>
+<p>OJI allows the user to display the Java Console through the Netscape 6 browser 
+  menu: Tasks&gt;Tools&gt;Java Console.</p>
+<h3>Enable/Disable Java</h3>
+<p>OJI allows enabling/disabling Java through the Netscape 6 browser menu: Edit&gt;Preferences&gt;Advanced. 
+  Note that to take effect, the browser must be restarted.</p>
+<h3>Applet Lifecycle Change</h3>
+<p>Whenever a page is visited, the <code>init()</code> and <code>start()</code> 
+  methods of the applet are called; and whenever the page is left, the <code>stop()</code> 
+  and <code>destroy()</code> methods may be called.</p>
+<h3>Proxy and Cookie Support</h3>
+<p>Previously, Java Plug-in handled proxy and cookie support. OJI moves that support 
+  to the browser.</p>
+<h3>HTTPS Through Netscape 6</h3>
+<p>As in previous releases of Java Plug-in, HTTPS support will be provided by 
+  the browser.<br>
+</p>
+<h3>Automatic Download</h3>
+<p>Via its XPInstall mechanism, Netscape 6 will support automatic download of 
+  Java Plug-in (JRE) if it is not present. </p>
+<h3>Backward Compatibility Issue</h3>
+<p>Although Sun has tried to ensure backward compatibility as much as possible 
+  between Java 2 and the Netscape VM, it may not be 100%. Some applets may run 
+  as is; other may only need recompilation; others, however, may need to be ported 
+  to Java 2.</p>
+<h2></h2>
+<p>&nbsp;</p>
+<!-- Body text ends here -->
+
+<!-- ============================================================== -->
+
+<HR SIZE=3 NOSHADE>
+
+
+
+<TABLE BORDER="0" WIDTH=100%>
+
+<TR VALIGN=TOP>
+
+
+
+<TD>
+
+<P><FONT SIZE="-2">
+
+   <A HREF="../../relnotes/SMICopyright.html">Copyright &#169;</A> 2000
+
+   <A HREF="http://www.sun.com/">Sun Microsystems, Inc.</A>
+
+    All Rights Reserved.</FONT></P>
+
+   <FONT SIZE="-1">
+
+   Please send comments to: <a href="mailto:java-plugin-feedback@javasun.com">java-plugin-feedback@java.sun.com</a> 
+
+   </FONT>
+
+</TD>
+
+
+
+<TD ALIGN=RIGHT>
+
+   <IMG SRC="../../images/sunlogo64x30.gif" ALT=" Sun Microsystems, Inc " BORDER=0 WIDTH=64 HEIGHT=30>
+
+   <BR>
+
+   <FONT SIZE="+1">
+
+   <i>Java Software</i>
+
+   </FONT>
+
+</TD>
+
+
+
+</TR>
+
+</TABLE>
+</body>
+</html>

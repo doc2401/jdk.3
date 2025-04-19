@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>Security Considerations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF">
+<hr>
+<h1>Security</h1>
+<hr>
+<div align="center"> <font size="2"><a href="index.html">home</a> 
+  | <a href="overview.html">overview</a> | <a href="plugin.html">plug-in</a> | 
+  <a href="oji.html">oji</a> | <a href="security.html">security</a></font> 
+  <p align="left"><br>
+  </p>
+</div>
+<p>There are three security-related areas in OJI:</p>
+<ul>
+  <li><a href="security.html#rsa">RSA Signed Applets</a></li>
+  <li><a href="security.html#https">HTTPS</a></li>
+  <li><a href="security.html#liveconnect">LiveConnect</a></li>
+</ul>
+<p>For general information about security and applets, see <a href="http://java.sun.com/j2se/1.3/docs/guide/security/index.html">Java 
+  Plug-in Security</a>. </p>
+<h2><a name="rsa"></a>RSA Signed Applets</h2>
+<p>Previous to Netscape 6, Netscape had its own security model and its own signing 
+  method called <a href="http://developer.netscape.com/docs/manuals/signedobj/trust/owp.htm">Netscape 
+  Object Signing</a>. The Object-Signing Tools could be used to sign a Java applet 
+  so that it could be executed in the JVM. Netscape also provides a set of Java 
+  classes, <code>netscape.security</code>, that is used by the applet to enable 
+  security in the browser. </p>
+<p>In Netscape 6, two mechanisms may be used for applet signing:</p>
+<ul>
+  <li>JAR signing in the JDK through an RSA certificate (see <a href="http://java.sun.com/products/plugin/1.3/nsobjsigning.html"> 
+    </a><a href="http://java.sun.com/products/plugin/1.3pdocs/netscape.html"> 
+    </a><a href="http://java.sun.com/products/plugin/1.3/docs/rsa_signing.html">How 
+    to Sign Applets Using RSA Certificates</a>)</li>
+  <li>Netscape Object Signing</li>
+</ul>
+<p>In Netscape 4 an applet must call into the <code>netscape.security</code> package 
+  to enable a privilege &#151; even if the applet is signed. If it does not, it 
+  will be treated as untrusted. Thus applet signing and granting of privileges 
+  are treated separately.</p>
+<p>In Netscape 6, signed applets are directly supported by the Java Plug-in. When 
+  the browser encounters a signed applet, a security dialog is automatically popped 
+  up. The applet does not have to call any method to enable privileges; privileges 
+  are already enabled.</p>
+<p>However, so that Netscape 4 applets will continue to work in Netscape 6, a 
+  stub class for the <code>netscape.security</code> package has been included. 
+  The stub class does nothing other than allow the applet to load into Java Plug-in 
+  as though it were loading in Netscape 4.</p>
+<h2><a name="https"></a>HTTPS</h2>
+<p>With this release of Java Plug-in, HTTPS is completely handled by the browser. 
+  Thus, anything related to HTTPS, such as the service certificate, can be configured 
+  through the browser.</p>
+<h2><a name="liveconnect"></a>LiveConnect</h2>
+<p>LiveConnect allows bi-directional communication between Java and JavaScript. 
+  But such communication can present security problems. For instance, suppose 
+  an applet and a web page originate from different hosts. Without a security 
+  policy, the applet might request sensitive information from a page through a 
+  call to JavaScript. Since an applet is allowed to connect to any host, it might 
+  then send such information out over the network in an irresponsible manner. 
+  A security policy has been implemented to prevent such actions from occurring.</p>
+<p>Each direction of communication is considered separately below.</p>
+<h3>JavaScript-to-Java Communication</h3>
+<p>In JavaScript-to-Java communication, a call from JavaScript to an applet is 
+  allowed only if one or both of the following is true:</p>
+<ol>
+  <li>The origin (URL) of the page is the same as the origin of the applet;</li>
+  <li>JavaScript is signed and <code>UniversalBrowserRead</code> permission is 
+    enabled for JavaScript.</li>
+</ol>
+<p>Without 1 or 2 being true, no call will be allowed from JavaScript to Java.</p>
+<p>Given that a call is allowed, then there are two possibilities: JavaScript 
+  will have default or all permissions.</p>
+<p>Permissions are determined by checking JavaScript signing:</p>
+<ul>
+  <li>If JavaScript has <code>UniversalJavaPermissions</code>, then it will be 
+    granted all permissions.</li>
+  <li>If JavaScript does not have <code>UniversalJavaPermissions</code>, then 
+    permissions will depend on local Java policy, which is set by the JRE in the 
+    browser. Local Java policy will consider the origin of the JavaScript, determine 
+    a set of permissions based on origin, then perform actions on the Java side 
+    accordingly.</li>
+</ul>
+<p>Note that to access an applet from JavaScript, the applet tag will need to 
+  specify an <code>ID</code> or <code>NAME</code> attribute.</p>
+<h3><a name="java-javascript"></a>Java-to-JavaScript Communication</h3>
+<p>A call from Java to JavaScript is allowed only if the applet and JavaScript 
+  have the same origin. </p>
+<p>Assuming the above condition is met, the applet is checked for its permissions. 
+  If it has all, then JavaScript will perform the requested actions. If the applet 
+  does not have all permissions, then JavaScript checks the origin of the applet 
+  and the <code>SecurityManager</code> of the browser then determines what actions 
+  the JavaScript engine may perform. </p>
+<p>Note that to access JavaScript, Java does so through an instance of the <code>netscape.javascript.JSObject</code> 
+  class. For more information, see <a href="http://java.sun.com/products/plugin/1.3/docs/jsobject.html">How 
+  Java-to-JavaScript Communication Works in Java Plug-in</a>.</p>
+<p>&nbsp;</p>
+<!-- Body text ends here -->
+
+<!-- ============================================================== -->
+
+<HR SIZE=3 NOSHADE>
+
+
+
+<TABLE BORDER="0" WIDTH=100%>
+
+<TR VALIGN=TOP>
+
+
+
+<TD>
+
+<P><FONT SIZE="-2">
+
+   <A HREF="../../relnotes/SMICopyright.html">Copyright &#169;</A> 2000
+
+   <A HREF="http://www.sun.com/">Sun Microsystems, Inc.</A>
+
+    All Rights Reserved.</FONT></P>
+
+   <FONT SIZE="-1">
+
+   Please send comments to: <a href="mailto:java-plugin-feedback@javasun.com">java-plugin-feedback@java.sun.com</a> 
+
+   </FONT>
+
+</TD>
+
+
+
+<TD ALIGN=RIGHT>
+
+   <IMG SRC="../../images/sunlogo64x30.gif" ALT=" Sun Microsystems, Inc " BORDER=0 WIDTH=64 HEIGHT=30>
+
+   <BR>
+
+   <FONT SIZE="+1">
+
+   <i>Java Software</i>
+
+   </FONT>
+
+</TD>
+
+
+
+</TR>
+
+</TABLE>
+</body>
+</html>

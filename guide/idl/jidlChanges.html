@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+
+<HEAD>
+   <TITLE>Java IDL: Changes between JDK 1.2 and J2SE 1.3</TITLE>
+<!-- Changed by: carson 11/2000 -->
+</HEAD>
+
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000FF" VLINK="#000077" 
+ALINK="#FF0000">
+
+
+<TABLE BORDER="0" WIDTH="100%">
+<TR>
+<TD WIDTH=30>
+   <IMG SRC="../../images/javalogo52x88.gif" ALT="Java" BORDER=0 
+WIDTH=52 HEIGHT=88>
+</TD>
+
+
+<TD ALIGN=CENTER>
+     <H1>Java<SUP><FONT SIZE="-2">TM</FONT></SUP>&nbsp;IDL: Changes 
+between JDK 1.2 and J2SE 1.3</H1>
+</TD>
+
+
+<TD ALIGN=RIGHT VALIGN=TOP>
+   <a href="../../index.html"><FONT SIZE="-1">Documentation 
+Contents</FONT></a> 
+</TD>
+</TR>
+
+</TABLE>
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+-->
+<p>
+
+
+<BLOCKQUOTE>
+
+
+This release of the Java<sup><font size=-2>TM</sup></font> 2 Platform, 
+Standard Edition, includes
+RMI-IIOP, a technology that integrates Java RMI (Remote Method 
+Invocation) 
+and Java IDL.   As a result,  Java IDL now uses a
+ new version of the
+ <A HREF = "../rmi-iiop/toJavaPortableUG.html">IDL-to-Java 
+compiler</A>.  This compiler supports new CORBA-standard features 
+   required for RMI-IIOP.  A summary of the changes that have occurred 
+as a result are outlined below.
+
+<P>RMI-IIOP supersedes Java IDL
+for most purposes, by enabling you to write CORBA-compliant interfaces
+directly in Java rather than in the OMG-specified IDL (Interface 
+Definition Language)
+used with Java IDL.  For details, see the
+ <A HREF="../rmi-iiop">RMI-IIOP documentation</A>. 
+<P> 
+
+
+
+
+</BLOCKQUOTE>
+
+<H2>Java IDL API changes</H2>
+<BLOCKQUOTE>
+The following list provides a summary of changes that occurred in Java 
+IDL between the release of JDK 1.2 and J2SE v.1.3. 
+
+<P>
+<UL>
+<LI>NEW!  IDL-to-Java compiler, <TT>idlj</TT>
+
+<P>The tool that generates Java bindings froma given IDL file has been 
+renamed from <TT>idltojava</TT> to <TT>idlj</TT>.  The 
+<TT>idltojava</TT> compiler was a separate download in JDK 1.2, the 
+<TT>idlj</TT> compiler is available as part of the J2SE v.1.3 download 
+and can be found in the <TT>/bin</TT> directory.
+<P>
+<LI>NEW!  IDL-to-Java compiler is 100% Pure Java
+
+<P>The <TT>idltojava</TT> compiler was hard-coded to use a default C++ 
+preprocessor.  When using the <TT>idltojava</TT> compiler, it was 
+necessary to add the path to the preprocessor prior to running the 
+<TT>idltojava</TT> compiler.  The <TT>idlj</TT> compiler is 100% pure 
+Java, so no preprocessor is necessary, and no special care need be 
+taken to set up a path to a preprocessor.
+<P>
+<LI>NEW!  More IDL-to-Java compiler options
+
+<P>The <TT>idltojava</TT> compiler generated both client and 
+server-side bindings by default.   The <TT>idlj</TT> compiler generates 
+only client-side bindings by default (making the assumption that client 
+and server will reside on different hosts).  You can easily emulate the 
+default of the previous compiler by using the <TT>-fall</TT> option 
+when compiling IDL files.  
+<P>
+<LI>NEW! Mapping for interfaces
+
+<P>The <TT>idltojava</TT> compiler generated five files in a 
+subdirectory with the same name as the IDL module.  In accordance with 
+the  <a href="mapping/idltojavamapping.pdf">OMG IDL to Java Language 
+Mapping Specification</a>, <em>Section 1.12, Mapping for 
+Interfaces</em>, the <TT>idlj</TT> compiler generates six files.  The 
+difference is that the signature interface no longer contains the 
+method that corresponds to the interface defined in the IDL file.  
+Instead, the operations interface,  
+<TT><EM>&lt;interface&gt;</EM>Operations.java</TT>, is generated in the 
+<TT><EM>&lt;module&gt;</EM></TT> subdirectory and contains the methods 
+defined by the interface.  The operations interface is shared by both 
+stubs and skeletons.
+<P>
+<LI>NEW! Support for IDL value types
+
+<P>The new IDL-to-Java compiler, <TT>idlj</TT>, support Java mapping to 
+IDL value types, as described in the <a 
+href="mapping/idltojavamapping.pdf">OMG IDL to Java Language Mapping 
+Specification</a>, <em>Section 1.13, Mapping for ValueType</em>.
+
+</UL> 
+
+
+
+<P>For more information on the  <TT>idlj</TT> compiler, link to <A 
+HREF="../rmi-iiop/toJavaPortableUG.html">idlj - The IDL-to-Java 
+Compiler (RMI-IIOP version)</A>.
+
+</BLOCKQUOTE>
+
+
+<p>
+<!-- Body text ends here -->
+
+<!-- ============================================================== -->
+
+<HR SIZE=3 NOSHADE>
+
+
+<TABLE BORDER="0" WIDTH="100%">
+<TR VALIGN=TOP>
+
+
+<TD>
+   <FONT SIZE="-2">
+   <A HREF="../../relnotes/SMICopyright.html">Copyright</a> &#169; 
+1996-2000
+   <A HREF="http://www.sun.com/">Sun Microsystems, Inc.</A>
+    All Rights Reserved.
+    </FONT>
+
+   <P>
+   <FONT SIZE="-1">
+   Send questions or comments to: <A HREF="mailto:javaidl@eng.sun.com">
+   JavaIDL@eng.sun.com</A>.
+   </FONT>
+</TD>
+
+
+<TD ALIGN=RIGHT>
+
+   <IMG SRC="../../images/sunlogo64x30.gif" ALT="Sun" BORDER=0 WIDTH=64 
+HEIGHT=30>
+   <BR><BR>
+   <FONT SIZE="+1">
+   <i>Java Software</i>
+   </FONT>
+
+</TD>
+
+
+</TR>
+</TABLE>
+
+
+</body>
+</html>

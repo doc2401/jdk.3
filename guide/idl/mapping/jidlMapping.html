@@ -1,0 +1,376 @@
+<HTML>
+
+<HEAD>
+
+   <TITLE>Java IDL: Mapping IDL to Java</TITLE>
+
+<!-- Changed by: dcarson, 10/2000 -->
+
+   <X-SAS-WINDOW TOP=42 BOTTOM=477 LEFT=4 RIGHT=534>
+
+</HEAD>
+
+<BODY BGCOLOR="#EEEEFF">
+
+
+
+<H1 ALIGN=CENTER>Java IDL: IDL to Java Language Mapping</H1>
+
+<HR>
+
+
+
+<P>This release of the Java<sup><font size=-2>TM</sup></font> 2 Platform, Standard Edition, v.1.3, includes <TT>idlj</TT>, a compiler that reads an Object Management Group (OMG) Interface Definition Language (IDL) file and translates it,
+or maps it, to a Java interface.  The <TT>idlj</TT> compiler
+also creates stub, skeleton, helper, holder, and other files as necessary. 
+These <TT>.java</TT> files are generated from the IDL file
+according to the mapping specified in the OMG document (pdf format) 
+<A HREF="idltojavamapping.pdf"><I>OMG IDL to Java Language Mapping Specification, formal, 99-07-53</I></A>. The postscript version of this specification can be found at <A HREF="http://www.omg.org/technology/documents/formal/omg_idl_to_java_language_mapping.htm">http://www.omg.org/technology/documents/formal/omg_idl_to_java_language_mapping.htm</A>.  Formal specification 99-07-53 of the IDL to Java language mapping is aligned with CORBA version 2.3.
+ For a basic summary of the IDL to Java mapping, see <A href="#overview">IDL to Java Language Mapping Overview</A> below.  
+
+
+<P>Some topics from the OMG <I>IDL to Java Language Mapping</I> specification that are not easily summarized are: 
+
+
+
+<UL>
+
+	<LI>Section 1.19, Mapping Pseudo-Objects to Java
+
+	<LI>Section 1.20, Server-Side Mapping
+
+	<LI>Section 1.21, Java ORB Portability Interfaces
+
+</UL>
+
+
+
+<P><HR>
+ 
+
+
+
+<A name="overview">
+
+<H2>IDL to Java Language Mapping Overview</H2></A>
+
+<P>
+CORBA objects are defined in OMG IDL (Object Management Group Interface
+Definition Language).  J2SE v1.3  includes <TT>idlj</TT>, the IDL-to-Java compiler that maps the IDL-defined interfaces to Java classes and interfaces. 
+</P>
+
+<P>
+This overview shows the correspondence between OMG IDL constructs and Java constructs. Note that OMG IDL, as its name implies, defines interfaces.   Like Java interfaces, IDL interfaces contain no implementations for their operations (methods in Java). In other words, IDL interfaces define only the signature for an operation (the name of the operation, the data type of its return value, the data types of the parameters that it takes, and any exceptions that it raises). The implementations for these operations need to be supplied in Java classes written by a Java programmer.
+
+</P>
+
+
+
+<P>The following table lists the main constructs of IDL and the corresponding constructs in Java.</P>
+
+
+
+<P><TABLE BORDER=1 CELLSPACING=0 CELLPADDING=5 WIDTH="100%">
+
+   <TR>
+
+      <TH VALIGN=top>
+
+         <P ALIGN=LEFT>IDL Construct
+
+      </TH><TH VALIGN=top>
+
+         <P ALIGN=LEFT>Java Construct
+
+      </TH></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>module
+
+      </TD><TD>
+
+         <P>package
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>interface (non-abstract)
+
+      </TD><TD>
+
+         <P>signature interface and an operations interface, helper class, holder class
+
+      </TD></TR>
+<TR>
+
+      <TD>
+
+         <P>interface (abstract)
+
+      </TD><TD>
+
+         <P>signature interface, helper class, holder class
+
+      </TD></TR>
+   <TR>
+
+      <TD>
+
+         <P>constant (not within an interface)
+
+      </TD><TD>
+
+         <P>public interface
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>boolean
+
+      </TD><TD>
+
+         <P>boolean
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>char, wchar
+
+      </TD><TD>
+
+         <P>char
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>octet
+
+      </TD><TD>
+
+         <P>byte
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>string, wstring
+
+      </TD><TD>
+
+         <P>java.lang.String
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>short, unsigned short
+
+      </TD><TD>
+
+         <P>short
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>long, unsigned long
+
+      </TD><TD>
+
+         <P>int
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>long long, unsigned long long
+
+      </TD><TD>
+
+         <P>long
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>float
+
+      </TD><TD>
+
+         <P>float
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>double
+
+      </TD><TD>
+
+         <P>double
+
+      </TD></TR>
+ <TR>
+
+      <TD>
+
+         <P>fixed
+
+      </TD><TD>
+
+         <P>java.math.BigDecimal
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>enum, struct, union
+
+      </TD><TD>
+
+         <P>class
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>sequence, array
+
+      </TD><TD>
+
+         <P>array
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>exception
+
+      </TD><TD>
+
+         <P>class
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>readonly attribute
+
+      </TD><TD>
+
+         <P>accessor method
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>readwrite attribute
+
+      </TD><TD>
+
+         <P>accessor and modifer methods
+
+      </TD></TR>
+
+   <TR>
+
+      <TD>
+
+         <P>operation
+
+      </TD><TD>
+
+         <P>method
+
+      </TD></TR>
+
+</TABLE></P>
+
+
+
+<P><HR>
+
+<B>Note:</B> When a CORBA operation takes a type that corresponds to a Java
+
+object type (a <TT>String</TT>, for example), it is illegal to pass a Java
+
+<TT>null</TT> as the parameter value. Instead, pass an empty version of the
+
+designated object type (for example, an empty <TT>String</TT> or
+an empty array). A Java <TT>null</TT> can be passed as a parameter only 
+when the type of the parameter is a CORBA object reference or value type, in which case the
+<TT>null</TT> is interpreted as a <TT>nil</TT> CORBA object reference.
+
+<HR><P>
+
+
+
+
+
+<CENTER><P>
+
+
+<TABLE cellpadding=8 cellspacing=4>
+
+<TR>
+
+  <TD ALIGN=CENTER><A href="../index.html">Home</A></TD>
+
+</TR></TABLE>
+
+
+
+<HR><P><FONT SIZE="-2">
+
+   <A HREF="../../../relnotes/SMICopyright.html">Copyright &#169;</A> 1995-98
+
+   <A HREF="http://www.sun.com/">Sun Microsystems, Inc.</A>
+
+    All Rights Reserved.</FONT></P>
+
+</CENTER>
+
+
+
+
+
+</BODY>
+
+</HTML>

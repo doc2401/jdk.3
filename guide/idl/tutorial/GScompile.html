@@ -1,0 +1,159 @@
+<HTML>
+<HEAD>
+   <TITLE>Getting Started with Java IDL: Running the Hello World Application</TITLE>
+<!-- Changed by: desoto, 1/30/98 -->
+<!-- Changed by: carson, 9/25/2000 -->
+   <X-SAS-WINDOW TOP=42 BOTTOM=477 LEFT=4 RIGHT=534>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+
+
+<H1 ALIGN=CENTER>Getting Started with Java IDL: Running the Hello World Application</H1>
+<HR>
+
+This topic
+walks you through running the server and client program that together make up the "Hello World" application or applet.
+ 
+ <H2>Running the Hello World Application</H2>
+
+
+<P>Despite its simple design, the Hello World program lets you learn and
+experiment with all the tasks required to develop almost any CORBA program
+that uses <A href="../jidlGlossary.html#invocation">static invocation</A>.  To run this client-server application on your development machine:
+<P>
+<OL>
+      
+   <LI>Start the Java IDL Name Server.  To do this from a UNIX command shell, enter:
+   <P>   
+<PRE>
+     tnameserv -ORBInitialPort <em>nameserverport</em>
+</PRE>
+<P>From an MS-DOS system prompt (Windows), enter:
+<PRE>
+     start tnameserv -ORBInitialPort <em>nameserverport</em>
+</PRE>
+   
+ <P>Note that <em>nameserverport</em> is the port on which you want the name server to run.
+ If you do not specify this, port 900 will be chosen by default.  Also note that using Solaris software, you must become root to start a process on a port under 1024.  For this reason, we recommend that you use a port number greater than or equal to 1024.<P>
+   
+<LI>From a second prompt or shell, start the Hello server:
+   
+<PRE>
+java HelloServer -ORBInitialHost <em>namerserverhost</em> -ORBInitialPort <em>nameserverport</em>
+</PRE>
+
+<P>Note that <em>nameserverhost</em> is the host on which the IDL name server is running.  You can omit <TT>-ORBInitialHost</TT> <em>nameserverhost</em> if the name server is running on the same host as the Hello server.  You can leave out <TT>-ORBInitialPort</TT> <em>nameserverport</em> if the name server is running on the default port.<P>
+   
+<LI>From a third prompt or shell, run the Hello application client:<P>
+   
+<PRE>java HelloClient  -ORBInitialHost <em>namerserverhost</em> -ORBInitialPort <em>nameserverport</em>
+</PRE>
+
+
+<P>Note that <em>nameserverhost</em> is the host on which the IDL name server is running.  You can omit <TT>-ORBInitialHost</TT> <em>nameserverhost</em> if the name server is running on the same host as the Hello client.  You can leave out <TT>-ORBInitialPort</TT> <em>nameserverport</em> if the name server is running on the default port.<P>
+
+<LI>The client prints the string from the server to the command line:
+   <PRE>Hello world!!</PRE>
+   
+</OL>
+
+<P>The name server and the Hello World server, like many CORBA servers, 
+run until you explicitly
+stop them. To avoid having many servers running, kill the server processes 
+after the client application returns successfully.
+
+
+<!--******************************************-->
+<A NAME="applet"></A>
+<H2>Running the Hello World Applet</H2>
+
+<P>You can run the applet from either a Java-enabled Web browser or from the Applet Viewer.  In either case, you must run the Name Server and the HelloServer prior to invoking the applet.  To run the applet, 
+<P>
+<OL>
+      
+   <LI>From an MS-DOS system prompt (Windows) or command shell (UNIX), start the Java IDL name server:
+   
+<PRE>
+     tnameserv -ORBInitialPort 1050 &
+</PRE>
+   
+ <P>In this example, the <em>nameserverport</em>, which is the port on which you want the name server to run, is set to 1050.
+ If you do not specify this, port 900 will be chosen by default.  Also note that using Solaris software, you must become root to start a process on a port under 1024.  For this reason, we recommend that you use a port number greater than or equal to 1024.<P>
+   
+<LI>From a second prompt or shell, start the Hello server:
+   
+<PRE>
+java HelloServer -ORBInitialHost <em>namerserverhost</em> -ORBInitialPort 1050 &
+</PRE>
+
+<P>Note that <em>nameserverhost</em> is the host on which the IDL name server is running.  You can omit <TT>-ORBInitialHost</TT> <em>nameserverhost</em> if the name server is running on the same host as the Hello server. In this example, the <TT>ORBInitialPort</TT>, which is the port on which you want the name server to run, is set to 1050.
+ If you do not specify this, port 900 will be chosen by default.  Also note that using Solaris software, you must become root to start a process on a port under 1024.  For this reason, we recommend that you use a port number greater than or equal to 1024.<P> 
+   
+   
+<LI>Run the applet.
+<P>To run the applet from the appletviewer,<P>
+	<OL>
+	<LI>Open another prompt or shell.
+	<LI>Change to the applet directory, <TT>Hello</TT>.
+	<LI>Start the appletviewer and 
+    browse <TT>Tutorial.html</TT> by typing:
+
+    <PRE>appletviewer Tutorial.html</PRE>
+   
+   <P><TT>Hello world!!</TT> prints to the appletviewer frame.
+   </OL>
+   
+   <P>To run the applet from a Web browser, <P>
+   	<OL>
+   	<LI>Open the Web browser.
+   	<LI>Open the file <TT>Tutorial.html</TT>.
+   	<P><TT>Hello world!!</TT> prints in the browser frame.
+   	</OL>
+   
+
+
+</OL>
+
+<P>If the applet does not run in the Web browser, make sure you have the Java 2 Runtime Environment, Standard Edition, version 1.3.0, which includes the Java Plugin 1.3.  This plugin is needed to run the applet and may not be present in older Web browsers.
+
+<P>The name server and the Hello World server, like many CORBA servers, 
+run until you explicitly
+stop them. To avoid having many servers running, kill the server processes 
+after the client application returns successfully.
+
+
+
+<A NAME="troubleshooting">
+<H2>Troubleshooting</H2></A>
+
+<H3>Security violation: method verification error</H3>
+
+<P>Make sure you have the Java 2 Runtime Environment, Standard Edition, version 1.3.0, which includes the Java Plugin 1.3.  This plugin is needed to run the applet and may not be present in older Web browsers.  It can be downloaded from <A HREF="http://java.sun.com/products/plugin/index.html">http://java.sun.com/products/plugin/index.html</A>.
+
+<H3>Specifying ORB Initial Port</H3>
+<P>
+The default ORB Initial Port is port 900.  If you prefer, you can omit the port specifications if you start the name server on port 900.  Using Solaris software, you must become root to start a process on a port under 1024.  Remember to exit from root access before continuing with the tutorial if you choose this port for your name server.
+
+
+
+<P><HR>
+<CENTER><A href="GSapp.html">Previous: Developing the Client Application</A><BR>
+<CENTER><A href="GSapplet.html">Previous: Developing the Client Applet</A><BR>
+<CENTER><A href="GSstring.html">Next: Using Stringified Object References</A><BR>
+<TABLE cellpadding=8 cellspacing=4>
+<TR>
+  <TD ALIGN=CENTER><A href="../index.html">
+Home</A></TD>
+</TR></TABLE></CENTER>
+
+<HR>
+<FONT
+SIZE="-2"><A HREF="http://www.sun.com/share/text/SMICopyright.html">Copyright
+&copy;</A></FONT><FONT SIZE="-2"> 1996-2000 Sun Microsystems, Inc.,
+2550 Garcia Ave., Mtn. View, CA. 94043-1100 USA., All rights
+reserved.</FONT></P>
+
+</BODY>
+</HTML>
+
+

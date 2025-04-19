@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+
+<HEAD>Java(tm) RMI-IIOP Documentation</TITLE>
+</HEAD>
+
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000FF" VLINK="#000077" ALINK="#FF0000">
+
+
+<TABLE BORDER="0" WIDTH="100%">
+<TR>
+<TD WIDTH=30>
+   <IMG SRC="../../images/javalogo52x88.gif" ALT="Java" BORDER=0 WIDTH=52 HEIGHT=88>
+</TD>
+
+
+<TD ALIGN=CENTER>
+     <H1>Java<SUP><FONT SIZE="-2">TM</FONT></SUP> RMI-IIOP Documentation</H1>
+</TD>
+
+
+<TD ALIGN=RIGHT VALIGN=TOP>
+   <a href="../../index.html"><FONT SIZE="-1">Documentation Contents</FONT></a> 
+</TD>
+</TR>
+
+</TABLE>
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<p>
+
+
+<BLOCKQUOTE>
+<P>RMI over IIOP is part of the Java<SUP><FONT SIZE="-2">TM</FONT></SUP> 2 Platform, Standard Edition, v1.3.  RMI over IIOP provides the ability to write
+CORBA applications for the Java platform without learning CORBA
+Interface Definition Language (IDL).  To work with CORBA applications
+in other languages, IDL can be generated from Java programming
+language interfaces using the <TT>rmic</TT> compiler with the <TT>-idl</TT> option.  Use the <TT>rmic</TT> compiler with the <TT>-iiop</TT> option to generate IIOP stub and tie classes, rather than Java Remote Messaging Protocol (JRMP) stub and skeleton classes.  For older versions of the JDK, the <A HREF="../../../../../products/rmi-iiop/index.html">RMI over IIOP compiler</A> is available as a separate download.
+
+<P>RMI over IIOP includes the full functionality of
+a CORBA Object Request Broker (ORB).  The good news for developers is that the Java<sup><font size="-2">TM</font></sup> Standard Edition, v1.2 and higher includes a fully-functional ORB that is available in every deployment of the Java 2 Platform, Standard and Enterprise Editions.  Now you can write Java CORBA code without having to license any other software! 
+
+
+<P>RMI-IIOP combines the best features of Java Remote Method Invocation (RMI) with the best features of Common Object Request Broker Architecture (CORBA).  It provides you with a powerful environment in which to do distributed programming using the Java platform.
+
+<P>Like RMI, RMI-IIOP speeds distributed application development by allowing developers to work completely in the Java programming language. When using RMI-IIOP to produce Java technology-based distributed applications,
+ there is no separate Interface Definition Language (IDL) or mapping to learn. Like RMI, RMI-IIOP provides flexibility by allowing developers to pass any serializable Java object (Objects By Value) between application  components. Like CORBA, RMI-IIOP is based on open standards defined with the participation of hundreds of vendors and users in the Object Management Group. Like CORBA, RMI-IIOP uses Internet Inter-ORB Protocol (IIOP) as its communication protocol. IIOP eases legacy application and platform integration by allowing application components written in C++, Smalltalk, and other CORBA supported languages to communicate with  components running on the Java platform. 
+
+<P>With RMI-IIOP, developers can write remote interfaces in the Java programming language and implement them simply using Java technology and the Java RMI APIs. These interfaces can be implemented in any other
+language that is supported by an OMG mapping and a vendor supplied ORB for that language. Similarly, clients can be written in other languages using IDL derived from the remote Java technology-based interfaces. Using
+RMI-IIOP, objects can be passed both by reference and by value over IIOP. 
+
+
+<H2 align=center>The RMI Programming Model</H2>
+
+
+<P>The RMI Programming model enables the programming of CORBA servers and applications 
+via the <TT>rmi</TT> API.  You can choose to work completely within the Java programming language, using the Java Remote Method Protocol (JRMP) or work with other CORBA-compliant programming languages using the Internet InterORB Protocol (IIOP).  This page discusses using IIOP as the transport.  For more information on using the JRMP transport, link to the RMI page at <A HREF="http://java.sun.com/j2se/1.3/docs/guide/rmi/">http://java.sun.com/j2se/1.3/docs/guide/rmi/</A>.  
+
+
+<P>There are several scenarios that will define how you will want to 
+create distributed applications.  Here are some of them:
+ 
+ <P>
+ <UL>
+ <LI>If you have been developing CORBA applications using <A 
+HREF="../idl/index.html">IDL</A> for some 
+time, you will probably want to stay in this environment.  Create the 
+interfaces using IDL, and define the client and server applications 
+using the Java programming language to take advantage of its "Write 
+Once, Run Anywhere<SUP><FONT SIZE="-2">TM</FONT></SUP>" portability, 
+its  highly productive implementation environment, and its very robust 
+platform.  
+ <P>
+ <LI>If all of your applications are written in the Java programming 
+language, you will probably want to use <A HREF="../rmi/">Java RMI</A> to enable 
+communication between Java objects on different virtual machines and 
+different physical machines.  Using Java RMI without its IIOP option 
+leverages its strengths of code portability, security, and garbage 
+collection.
+ <P>
+ <LI>If you writing most of your new applications using the Java 
+programming language, but need to maintain legacy applications written 
+in other programming languages as well, you will probably want to use 
+Java RMI with its <A HREF="../rmi-iiop/">IIOP</A> compiler option.  
+ </UL>
+
+
+
+
+
+
+<P>
+
+</BLOCKQUOTE>
+
+<H2>RMI-IIOP Developer Documentation</H2>
+<UL>
+    <UL>
+<LI><A href="rmi_iiop_pg.html">RMI-IIOP Programmer's Guide</A>
+<LI><A href="../rmi/spec/rmiTOC.html">RMI Specification</A>
+</UL>
+</UL>
+
+
+<H2>RMI-IIOP Tools Documentation</H2>
+<UL>
+    <UL>
+<LI><A href="toJavaPortableUG.html">IDL-to-Java Compiler (idlj)</A>
+<LI>RMI Compiler (rmic) <A href="../../tooldocs/solaris/rmic.html">Solaris</A> / <A href="../../tooldocs/win32/rmic.html">Win32</A>
+</UL>
+</UL>
+
+
+<H2>RMI-IIOP Javadoc API Reference</H2>
+<UL>
+    <UL>
+       <LI>package <A HREF="../../api/org/omg/CORBA/package-summary.html">org.omg.CORBA</A> 
+       <LI>package <A 
+HREF="../../api/org/omg/CosNaming/package-summary.html">org.omg.CosNaming</A>
+	<LI><A HREF="../../api/org/omg/CORBA/ORB.html">org.omg.CORBA.ORB</A>
+    </UL>
+</UL>
+
+<H2>For more information</H2>
+<blockquote>
+<p>
+
+The <I><A HREF="http://www.omg.org/">OMG</A></I> is the official
+source of information for all CORBA and IIOP related information.
+The <I><A HREF="http://cgi.omg.org/cgi-bin/doc?formal/99-10-07">CORBA/IIOP 2.3.1
+Specification, formal/99-10-07</A></I> is available electronically.
+
+
+</blockquote>
+<p>
+<!-- Body text ends here -->
+
+<!-- ============================================================== -->
+
+<HR SIZE=3 NOSHADE>
+
+
+<TABLE BORDER="0" WIDTH="100%">
+<TR VALIGN=TOP>
+
+
+<TD>
+   <FONT SIZE="-2">
+   <!--#include virtual="../../../../../share/staticinclude/normal.footer.html"-->
+    </FONT>
+
+   <P>
+   <FONT SIZE="-1">
+   Send questions or comments to: <A HREF="mailto:javaidl@eng.sun.com">
+   JavaIDL@eng.sun.com</A>.
+   </FONT>
+</TD>
+
+
+<TD ALIGN=RIGHT>
+
+   <IMG SRC="../../images/sunlogo64x30.gif" ALT="Sun" BORDER=0 WIDTH=64 HEIGHT=30>
+   <BR><BR>
+   <FONT SIZE="+1">
+   <i>Java Software</i>
+   </FONT>
+
+</TD>
+
+
+</TR>
+</TABLE>
+
+
+</body>
+</html>
